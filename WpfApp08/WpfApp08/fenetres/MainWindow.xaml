@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfApp08.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp08"
+        mc:Ignorable="d"
+        Title="MainWindow" >
+    <Grid Height="676" Width="921">
+        <Border CornerRadius="5" BorderBrush="RoyalBlue" BorderThickness="1" 
+                    Padding="5" HorizontalAlignment="Left" Margin="20,10,0,0" 
+                    VerticalAlignment="Top" Height="621" Width="893">
+            <Grid Background="#FFEDF3F8" Margin="0,119,12,18" RenderTransformOrigin="0.5,0.5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="642*"/>
+                    <ColumnDefinition Width="227*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" Margin="63,3,136,6"
+            HorizontalGridLinesBrush="#FF060606"
+                  VerticalGridLinesBrush="#FF0A0A0A"
+                  AlternatingRowBackground="LightGray"
+                  AlternationCount="2" Background="#FFFBFBFB" BorderBrush="#FF151515" 
+                  FrozenColumnCount="2" HeadersVisibility="Column" Grid.ColumnSpan="2">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nom" Width="150" Binding="{Binding Nom}" />
+                        <DataGridTextColumn Header="Prenom" Width="150" Binding="{Binding Prenom}" />
+                        <DataGridTextColumn Header="Telephone_fixe" Width="150" Binding="{Binding Telephone_fixe}" />
+                        <DataGridTextColumn Header="Telephone_portable" Width="150" Binding="{Binding Telephone_portable}" />
+                        <DataGridTextColumn Header="Email" Width="150" Binding="{Binding Email}" />
+                        <DataGridTextColumn Header="IDService" Width="150" Binding="{Binding IDService}"  />
+                        <DataGridTextColumn Header="IDSite" Width="150" Binding="{Binding IDSite}"  />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+
+    </Grid>
+
+</Window>
