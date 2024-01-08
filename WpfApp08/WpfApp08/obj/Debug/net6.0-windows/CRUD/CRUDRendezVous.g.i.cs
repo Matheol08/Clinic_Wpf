@@ -60,7 +60,7 @@ namespace WpfApp08 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WpfApp08;V1.0.0.0;component/crud/crudrendezvous.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WpfApp08;component/crud/crudrendezvous.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\CRUD\CRUDRendezVous.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

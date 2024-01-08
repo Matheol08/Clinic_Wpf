@@ -18,6 +18,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Ajouter_Patient.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Ajouter_Medecin.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="CRUD\CRUDPatient.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>

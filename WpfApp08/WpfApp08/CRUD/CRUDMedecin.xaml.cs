@@ -33,7 +33,7 @@ namespace WpfApp08
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Nom.Text) )
+            if (string.IsNullOrEmpty(Ville.Text) )
             {
                 MessageBox.Show("Veuillez remplir le champ Ville.");
             }
@@ -158,7 +158,7 @@ namespace WpfApp08
 
                 using (var context = new AnnuaireContext(optionsBuilder.Options))
                 {
-                    int count = await context.Salaries.CountAsync(s => s.IDSite == siteId);
+                    int count = await context.RendezVous.CountAsync(s => s.IDSite == siteId);
 
                     return count > 0;
                 }

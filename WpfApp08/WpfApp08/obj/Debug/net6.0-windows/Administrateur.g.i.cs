@@ -53,7 +53,7 @@ namespace WpfApp08 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WpfApp08;V1.0.0.0;component/administrateur.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WpfApp08;component/administrateur.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Administrateur.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -42,13 +42,13 @@
             </Grid>
 
 
-            <StackPanel VerticalAlignment="Top" Margin="49,391,710,0">
+            <StackPanel VerticalAlignment="Top" Margin="25,391,710,0">
                 <Button Content="Nouveau rendez-vous"
                         Foreground="White"
                         Click="OuvrirNouvelleFenetre_Click"
                         FontSize="14"
                         
-                        FontWeight="Medium" Width="141" Height="42" Background="#FFFC6586" BorderBrush="#FF383660" RenderTransformOrigin="0.5,0.5">
+                        FontWeight="Medium" Width="162" Height="42" Background="#FFFC6586" BorderBrush="#FFFC6586" RenderTransformOrigin="0.5,0.5">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -96,6 +96,7 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
+            <Button Content="Planning" HorizontalAlignment="Left" Height="42" Margin="218,391,0,0" VerticalAlignment="Top" Width="180" BorderBrush="#FFFC6586" Background="#FFFC6586" Foreground="White" FontSize="14"/>
 
 
         </Grid>

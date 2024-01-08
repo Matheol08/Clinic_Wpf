@@ -183,3 +183,5 @@ C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\WpfApp08_MarkupCompile.cache
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\WpfApp08_MarkupCompile.lref
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\CRUD\CRUDMedecin.g.cs
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\Ajouter_Medecin.g.cs
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\Ajouter_RendezVous - Copier (2).g.cs
