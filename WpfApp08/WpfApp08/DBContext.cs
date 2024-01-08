@@ -16,10 +16,10 @@ namespace WpfApp08
 
         }
 
-        public DbSet<Salaries> Salaries { get; set; }
+        public DbSet<RendezVous> RendezVous { get; set; }
         public DbSet<Specialites> Specialites { get; set; }
         public DbSet<Medecins> Medecins { get; set; }
-
+        public DbSet<Patients> Patients { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

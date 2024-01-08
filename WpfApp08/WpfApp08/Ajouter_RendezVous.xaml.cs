@@ -8,24 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using WPF_Salaries;
+using WpfApp08.Models1;
 using WpfApp08.Models2;
 using WpfApp08.Models3;
 
 
 namespace WpfApp08
 {
-    public partial class Ajouter_Salarie : Window
+    public partial class Ajouter_RendezVous : Window
     {
-        public ObservableCollection<Salaries> Salaries { get; set; }
-        public Ajouter_Salarie()
+        public ObservableCollection<RendezVous> RendezVous { get; set; }
+        public Ajouter_RendezVous()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
             InitializeComponent();
             ChargerLesServices();
             ChargerLesSites();
-            Salaries = new ObservableCollection<Salaries>();
+            RendezVous = new ObservableCollection<RendezVous>();
         }
         private async void ChargerLesSites()
         {
@@ -39,10 +39,10 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var sites = JsonConvert.DeserializeObject<Sites[]>(json);
+                        var Patients = JsonConvert.DeserializeObject<Patients[]>(json);
 
                         
-                        Combo2.ItemsSource = sites;
+                        Combo2.ItemsSource = Patients;
                         Combo2.DisplayMemberPath = "Ville";
                     }
                     else
@@ -68,9 +68,9 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var services = JsonConvert.DeserializeObject<Service[]>(json);
+                        var Medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
 
-                        Combo1.ItemsSource = services;
+                        Combo1.ItemsSource = Medecins;
                         Combo1.DisplayMemberPath = "Nom_Service";
                     }
                     else
@@ -100,8 +100,8 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int idService = ((Service)Combo1.SelectedItem).IDService;
-                    int idSite = ((Sites)Combo2.SelectedItem).IDSite;
+                    int idService = ((Medecins)Combo1.SelectedItem).IdMedecin;
+                    int idSite = ((Patients)Combo2.SelectedItem).IdPatient;
 
                     Ajout_Salaries nouvelAjoutSalarie = new Ajout_Salaries
                     {
@@ -119,7 +119,7 @@ namespace WpfApp08
                     if (updateSuccess)
                     {
                         MessageBox.Show("Mise à jour réussie !");
-                        CRUDEmploye pageAcceuil = new CRUDEmploye();
+                        CRUDRendezVous pageAcceuil = new CRUDRendezVous();
                         pageAcceuil.Show();
                         this.Close();
                     }
@@ -180,7 +180,7 @@ namespace WpfApp08
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CRUDEmploye pageAcceuil = new CRUDEmploye();
+            CRUDRendezVous pageAcceuil = new CRUDRendezVous();
             pageAcceuil.Show();
             this.Close();
         }

@@ -12,7 +12,7 @@
 
 
         <Button Content="Retour" Click="RetourButton_Click" HorizontalAlignment="Left" Margin="16,-39,0,0" VerticalAlignment="Top" Height="29" Width="66" Grid.Row="0"/>
-        <Button Click="Button_utilisateur" Content="Modifier s" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,191,0,0" BorderBrush="#FF113668" FontSize="18" Foreground="White" Background="#FFFC6586" />
+        <Button Click="Button_utilisateur" Content="Modifier des medecins" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,191,0,0" BorderBrush="#FF113668" FontSize="18" Foreground="White" Background="#FFFC6586" />
         <Button Content="Modifier des sites" Click="Button_site" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,341,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
         <Button Click="Button_service" Content="Modifier des specialites&#xD;&#xA;" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,265,0,0" BorderBrush="Black" Foreground="White" FontSize="18" Background="#FFFC6586" />
         <StackPanel Width="388" Height="144" Margin="453,290,-186,0">
@@ -38,7 +38,7 @@
             </TextBox.RenderTransform>
         </TextBox>
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="12,74,0,0" VerticalAlignment="Top" Width="20" Click="RetourButton_Click"/>
-        <Button Content="Modifier des sites" Click="Button_site" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,417,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
+        <Button Content="Modifier des patients" Click="Button_site" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,417,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
 
 
     </Grid>

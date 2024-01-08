@@ -25,14 +25,14 @@
                         </TransformGroup>
                     </StackPanel.RenderTransform>
 
-           
+
                     <StackPanel Width="1031" Height="145">
                         <Border Width="782" Height="35" Background="#3DDDC2" Margin="150,0,0,0" CornerRadius="20"/>
                         <Border Width="750" Height="35" Background="#FC6586" Margin="0,15,0,0" CornerRadius="20"/>
                         <Border Width="761" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
                     </StackPanel>
 
-              
+
                     <StackPanel Width="388" Height="144">
                         <Border Width="401" Height="35" Background="#FF3DDDC2" Margin="150,0,0,0" CornerRadius="20"/>
                         <Border Width="675" Height="35" Background="#FC6586" Margin="0,15,0,0" CornerRadius="20"/>
@@ -41,14 +41,22 @@
                 </StackPanel>
             </Grid>
 
-          
+
             <StackPanel VerticalAlignment="Top" Margin="49,391,710,0">
-                <Button Content="DIRECTION"
+                <Button Content="Nouveau rendez-vous"
                         Foreground="White"
                         Click="OuvrirNouvelleFenetre_Click"
                         FontSize="14"
                         
-                        FontWeight="Medium" Width="142" Height="27" Background="#FFFC6586" BorderBrush="#FF383660">
+                        FontWeight="Medium" Width="141" Height="42" Background="#FFFC6586" BorderBrush="#FF383660" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.06"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
                     <!-- Style du bouton avec des déclencheurs pour les effets de survol -->
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">

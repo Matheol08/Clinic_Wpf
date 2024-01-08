@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using WpfApp08.Models4;
-
 namespace WpfApp08
 {
     public partial class CRUDSpecialite : Window
@@ -132,7 +131,7 @@ namespace WpfApp08
 
                 using (var context = new AnnuaireContext(optionsBuilder.Options))
                 {
-                    int count = await context.Salaries.CountAsync(s => s.IDService == serviceId);
+                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == serviceId);
 
                     return count > 0;
                 }

@@ -7,16 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Ajouter_Salarie.xaml.cs">
+    <Compile Update="Ajouter_RendezVous.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CRUDEmploye.xaml.cs">
+    <Compile Update="CRUD\CRUDRendezVous.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CRUDSpecialite.xaml.cs">
+    <Compile Update="CRUD\CRUDSpecialite.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CRUDMedecin.xaml.cs">
+    <Compile Update="CRUD\CRUDMedecin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Window1.xaml.cs">
@@ -33,16 +33,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Ajouter_Salarie.xaml">
+    <Page Update="Ajouter_RendezVous.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="CRUDEmploye.xaml">
+    <Page Update="CRUD\CRUDPatient.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="CRUDSpecialite.xaml">
+    <Page Update="CRUD\CRUDRendezVous.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="CRUDMedecin.xaml">
+    <Page Update="CRUD\CRUDSpecialite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CRUD\CRUDMedecin.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="fenetres\MainWindow.xaml">

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-
+using WpfApp08.Models2;
 namespace WpfApp08
 {
 
-    public partial class CRUDEmploye : Window
+    public partial class CRUDPatient : Window
     {
-        public ObservableCollection<Salaries> Salaries { get; set; }
-        public CRUDEmploye()
+        public ObservableCollection<Patients> Patients { get; set; }
+        public CRUDPatient()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -24,8 +24,8 @@ namespace WpfApp08
 
             ResizeMode = ResizeMode.NoResize;
             ChargerSalaries();
-            Salaries = new ObservableCollection<Salaries>();
-            DataGrid1.ItemsSource = Salaries;
+            Patients = new ObservableCollection<Patients>();
+            DataGrid1.ItemsSource = Patients;
         }
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
@@ -40,12 +40,12 @@ namespace WpfApp08
         private async void Supprimer_Click(object sender, RoutedEventArgs e)
         {
             // pour obtenir la ligne sélectionnée dans le DataGrid
-            Salaries siteSelectionne = (Salaries)DataGrid1.SelectedItem;
+            Patients siteSelectionne = (Patients)DataGrid1.SelectedItem;
 
             if (siteSelectionne != null)
             {
 
-                int salariesId = siteSelectionne.IDSalaries;
+                int salariesId = siteSelectionne.IdPatient;
 
 
                 bool deleteSuccess =  await SupprimerDonneesAvecAPI(salariesId);
@@ -55,7 +55,7 @@ namespace WpfApp08
 
                     MessageBox.Show("Suppression réussie !");
 
-                    Salaries.Remove(siteSelectionne);
+                    Patients.Remove(siteSelectionne);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace WpfApp08
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(apiUrl);
-                    CRUDEmploye Pagesite = new CRUDEmploye();
+                    CRUDPatient Pagesite = new CRUDPatient();
                     Pagesite.Show();
                     this.Close();
                     return response.IsSuccessStatusCode;
@@ -99,7 +99,7 @@ namespace WpfApp08
         private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
 
-            var editedRow = e.Row.Item as Salaries;
+            var editedRow = e.Row.Item as Patients;
 
 
             var nouvelleValeur = (e.EditingElement as TextBox).Text;
@@ -108,15 +108,15 @@ namespace WpfApp08
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
 
-            Salaries SalariesSelectionne = (Salaries)DataGrid1.SelectedItem;
+            Patients SalariesSelectionne = (Patients)DataGrid1.SelectedItem;
 
             if (SalariesSelectionne != null)
             {
 
-                int IDSalaries = SalariesSelectionne.IDSalaries;
+                int IdPatient = SalariesSelectionne.IdPatient;
 
 
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IDSalaries, SalariesSelectionne);
+                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdPatient, SalariesSelectionne);
 
                 if (updateSuccess)
                 {
@@ -136,7 +136,7 @@ namespace WpfApp08
         }
 
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IDSalaries, Salaries Salaries)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int IDSalaries, Patients Salaries)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var salaries = JsonConvert.DeserializeObject<List<Salaries>>(json);
+                        var salaries = JsonConvert.DeserializeObject<List<Patients>>(json);
 
                         DataGrid1.Columns.Clear();
 

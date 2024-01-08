@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\mathe\OneDrive\Documents\Projet Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\
 WpfApp08
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\mathe\OneDrive\Documents\Projet Clinic\Clinic_WPF\WpfApp08\WpfApp08\App.xaml
-91536663575
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\App.xaml
+1026109992
 
-18-514689013
-233791548849
-Administrateur.xaml;AdminMDP.xaml;Ajouter_Salarie.xaml;CRUDEmploye.xaml;CRUDMedecin.xaml;CRUDSpecialite.xaml;fenetres\MainWindow.xaml;Utilisateur.xaml;Window1.xaml;
+19-1944205753
+233-334554734
+Administrateur.xaml;AdminMDP.xaml;Ajouter_RendezVous.xaml;CRUD\CRUDMedecin.xaml;CRUD\CRUDPatient.xaml;CRUD\CRUDRendezVous.xaml;CRUD\CRUDSpecialite.xaml;fenetres\MainWindow.xaml;Utilisateur.xaml;Window1.xaml;
 
-True
+False
 

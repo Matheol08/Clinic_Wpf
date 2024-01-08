@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using WPF_Salaries;
-using WpfApp08.Models2;
-using WpfApp08.Models3;
 using System.Threading.Tasks;
+using WpfApp08.Models4;
+using WpfApp08.Models1;
+using WpfApp08.Models3;
 
 namespace WpfApp08
 {
@@ -45,11 +45,11 @@ namespace WpfApp08
             {
                 if (ComboVille.SelectedItem != null && ComboService.SelectedItem != null)
                 {
-                    var selectedSite = (Sites)ComboVille.SelectedItem;
-                    var selectedService = (Service)ComboService.SelectedItem;
+                    var selectedSite = (Specialites)ComboVille.SelectedItem;
+                    var selectedService = (Medecins)ComboService.SelectedItem;
 
-                    string selectedVille = selectedSite.Ville;
-                    string selectedNomService = selectedService.Nom_Service;
+                    string selectedVille = selectedSite.Libelle;
+                    string selectedNomService = selectedService.Nom;
 
                     string apiUrl = $"https://localhost:7152/api/salaries/rechercheSiteEtService?ville={selectedVille}&nomService={selectedNomService}";
 
@@ -58,8 +58,8 @@ namespace WpfApp08
                 }
                 else if (ComboVille.SelectedItem != null)
                 {
-                    var selectedSite = (Sites)ComboVille.SelectedItem;
-                    string selectedVille = selectedSite.Ville;
+                    var selectedSite = (Specialites)ComboVille.SelectedItem;
+                    string selectedVille = selectedSite.Libelle;
 
                     string apiUrl = $"https://localhost:7152/api/salaries/rechercheSite?ville={selectedVille}";
 
@@ -68,8 +68,8 @@ namespace WpfApp08
                 }
                 else if (ComboService.SelectedItem != null)
                 {
-                    var selectedService = (Service)ComboService.SelectedItem;
-                    string selectedNomService = selectedService.Nom_Service;
+                    var selectedService = (Medecins)ComboService.SelectedItem;
+                    string selectedNomService = selectedService.Nom;
 
                     string apiUrl = $"https://localhost:7152/api/salaries/rechercheService?Nom_Service={selectedNomService}";
 
@@ -98,7 +98,7 @@ namespace WpfApp08
             {
                 string json = await response.Content.ReadAsStringAsync();
 
-                var results = JsonConvert.DeserializeObject<List<Salaries>>(json);
+                var results = JsonConvert.DeserializeObject<List<RendezVous>>(json);
 
                 DataGrid1.ItemsSource = results;
             }
@@ -128,7 +128,7 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var salaries = JsonConvert.DeserializeObject<List<Salaries>>(json);
+                        var salaries = JsonConvert.DeserializeObject<List<RendezVous>>(json);
 
                         DataGrid1.Columns.Clear();
 
@@ -166,7 +166,7 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var sites = JsonConvert.DeserializeObject<Sites[]>(json);
+                        var sites = JsonConvert.DeserializeObject<Specialites[]>(json);
 
 
                         ComboVille.ItemsSource = sites;
@@ -195,7 +195,7 @@ namespace WpfApp08
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var services = JsonConvert.DeserializeObject<Service[]>(json);
+                        var services = JsonConvert.DeserializeObject<Medecins[]>(json);
 
                         ComboService.ItemsSource = services;
                         ComboService.DisplayMemberPath = "Nom_Service";
