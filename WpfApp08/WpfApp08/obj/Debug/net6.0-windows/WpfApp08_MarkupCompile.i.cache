@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\WpfApp08\WpfApp08\App.xaml
-121093751445
+13-1818413440
 
-21-1067712912
+22-1894060850
 233-334554734
-Administrateur.xaml;AdminMDP.xaml;Ajouter_Medecin.xaml;Ajouter_Patient.xaml;Ajouter_RendezVous.xaml;CRUD\CRUDMedecin.xaml;CRUD\CRUDPatient.xaml;CRUD\CRUDRendezVous.xaml;CRUD\CRUDSpecialite.xaml;fenetres\MainWindow.xaml;Utilisateur.xaml;Window1.xaml;
+Accueil.xaml;Administrateur.xaml;AdminMDP.xaml;Ajouter_Medecin.xaml;Ajouter_Patient.xaml;Ajouter_RendezVous.xaml;CRUD\CRUDMedecin.xaml;CRUD\CRUDPatient.xaml;CRUD\CRUDRendezVous.xaml;CRUD\CRUDSpecialite.xaml;fenetres\MainWindow.xaml;Utilisateur.xaml;Window1.xaml;
 
 False
 
