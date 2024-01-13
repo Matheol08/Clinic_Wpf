@@ -89,10 +89,8 @@ namespace WpfApp08
         {
             try
             {
-                if (string.IsNullOrEmpty(Text1.Text) ||
-                    string.IsNullOrEmpty(Text2.Text) ||
-                    string.IsNullOrEmpty(Text3.Text) ||
-                    string.IsNullOrEmpty(Text4.Text) ||
+                if (string.IsNullOrEmpty(Combo1.Text) ||
+                    string.IsNullOrEmpty(Combo2.Text) ||
                     Combo1.SelectedItem == null ||
                     Combo2.SelectedItem == null)
                 {
@@ -100,21 +98,18 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int idService = ((Medecins)Combo1.SelectedItem).IdMedecin;
-                    int idSite = ((Patients)Combo2.SelectedItem).IdPatient;
+                    int idService = ((Medecins)Combo1.SelectedItem).IdPatient;
+                    int idSite = ((Patients)Combo2.SelectedItem).MedecinId;
 
-                    Ajout_Salaries nouvelAjoutSalarie = new Ajout_Salaries
+                    Ajouter_RendezVous nouveau_RendezVous = new Ajouter_RendezVous
                     {
-                        Nom = Text1.Text,
-                        Prenom = Text2.Text,
+                        IdPatient = Combo1.Text,
+                        MedecinId = Combo2.Text,
                         Telephone_fixe = Text3.Text,
-                        Telephone_portable = Text4.Text,
-                        Email = Text5.Text,
-                        IDService = idService,
-                        IDSite = idSite
+                        Telephone_portable = Text4.Text
                     };
 
-                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelAjoutSalarie);
+                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveau_RendezVous);
 
                     if (updateSuccess)
                     {
@@ -138,12 +133,12 @@ namespace WpfApp08
 
 
 
-        private async Task<bool> EnvoyerDonneesAvecAPI(Ajout_Salaries ajoutSalarie)
+        private async Task<bool> EnvoyerDonneesAvecAPI(nouveau_RendezVous)
         {
             try
             {
                 string apiUrl = "https://localhost:7152/api/salaries";
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(ajoutSalarie);
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouveau_RendezVous);
                 Console.WriteLine($"JSON Data: {jsonData}");
 
                 using (HttpClient client = new HttpClient())

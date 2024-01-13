@@ -2942,19 +2942,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mlesenne\\.nuget\\packages\\": {}
+    "C:\\Users\\mathe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mlesenne\\Documents\\papier perso\\Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\WpfApp08.csproj",
+      "projectUniqueName": "C:\\Users\\mathe\\OneDrive\\Documents\\Projet Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\WpfApp08.csproj",
       "projectName": "WpfApp08",
-      "projectPath": "C:\\Users\\mlesenne\\Documents\\papier perso\\Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\WpfApp08.csproj",
-      "packagesPath": "C:\\Users\\mlesenne\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mlesenne\\Documents\\papier perso\\Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\obj\\",
+      "projectPath": "C:\\Users\\mathe\\OneDrive\\Documents\\Projet Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\WpfApp08.csproj",
+      "packagesPath": "C:\\Users\\mathe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mathe\\OneDrive\\Documents\\Projet Clinic\\Clinic_WPF\\WpfApp08\\WpfApp08\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mlesenne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3024,7 +3024,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

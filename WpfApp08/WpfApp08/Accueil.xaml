@@ -12,16 +12,14 @@
 
 
         <Button Content="Retour" Click="RetourButton_Click" HorizontalAlignment="Left" Margin="16,-39,0,0" VerticalAlignment="Top" Height="29" Width="66" Grid.Row="0"/>
-        <Button Click="Button_utilisateur" Content="Modifier des medecins" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,191,0,0" BorderBrush="#FF113668" FontSize="18" Foreground="White" Background="#FFFC6586" />
-        <Button Content="Modifier des sites" Click="Button_site" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,341,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
-        <Button Click="Button_service" Content="Modifier des specialites&#xD;&#xA;" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,265,0,0" BorderBrush="Black" Foreground="White" FontSize="18" Background="#FFFC6586" />
+        <Button Content="Modifier des rendez-vous" Click="Button_rendez_vous" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="218" Margin="61,248,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
         <StackPanel Width="388" Height="144" Margin="453,290,-186,0">
 
             <Border Width="437" Height="35" Background="#FF3DDDC2" Margin="150,0,0,0" CornerRadius="20"/>
             <Border Width="331" Height="35" Background="#FC6586" Margin="0,15,0,0" CornerRadius="20"/>
             <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
         </StackPanel>
-        <TextBox IsReadOnly="True" Grid.RowSpan="3" HorizontalAlignment="Center" Height="57" Margin="0,98,0,0" TextWrapping="Wrap" Text="Administration Annuaire" VerticalAlignment="Top" Width="391" FontSize="35" Foreground="#FF3DDDC2" RenderTransformOrigin="0.5,0.5" Grid.Column="1" BorderBrush="#FF0F0F2D" >
+        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="72" Margin="376,106,0,0" TextWrapping="Wrap" Text="Acceuil" VerticalAlignment="Top" Width="171" FontSize="48" Foreground="#FF3DDDC2" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF0F0F2D" >
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -38,7 +36,7 @@
             </TextBox.RenderTransform>
         </TextBox>
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="12,74,0,0" VerticalAlignment="Top" Width="20" Click="RetourButton_Click"/>
-        <Button Content="Modifier des patients" Click="Button_site" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="190" Margin="273,417,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
+        <Button Content="Modifier des patients" Click="Button_patients" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="218" Margin="60,378,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
 
 
     </Grid>

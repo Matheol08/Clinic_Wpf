@@ -9,41 +9,38 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApp08.Models1;
-using WpfApp08.Models2;
-using WpfApp08.Models3;
-
+using WpfApp08.Models4;
 
 namespace WpfApp08
 {
-    public partial class Ajouter_RendezVous : Window
+    public partial class Ajouter_Medecin : Window
     {
-        public ObservableCollection<RendezVous> RendezVous { get; set; }
-        public Ajouter_RendezVous()
+        public ObservableCollection<Medecins> Medecins { get; set; }
+        public Ajouter_Medecin()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
             InitializeComponent();
-            ChargerLesServices();
-            ChargerLesSites();
-            RendezVous = new ObservableCollection<RendezVous>();
+            ChargerLesSpe();
+            //Medecins = new ObservableCollection<Ajouter_Medecin>();
         }
-        private async void ChargerLesSites()
+        private async void ChargerLesSpe()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/sites";
+                    string apiUrl = "https://localhost:7152/api/specialite";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var Patients = JsonConvert.DeserializeObject<Patients[]>(json);
+                        var Specialite = JsonConvert.DeserializeObject<Specialites[]>(json);
 
                         
-                        Combo2.ItemsSource = Patients;
-                        Combo2.DisplayMemberPath = "Ville";
+                        Combo1.ItemsSource = Specialite;
+                        Combo1.DisplayMemberPath = "Specialité";
                     }
                     else
                     {
@@ -56,62 +53,27 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-        private async void ChargerLesServices()
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    string apiUrl = "https://localhost:7152/api/services";
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+       
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string json = await response.Content.ReadAsStringAsync();
-                        var Medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
-
-                        Combo1.ItemsSource = Medecins;
-                        Combo1.DisplayMemberPath = "Nom_Service";
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Erreur lors de la récupération des données : {response.ReasonPhrase}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
-            }
-        }
-
-        private async void Ajouter_Click(object sender, RoutedEventArgs e)
+        private async void Ajouter(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (string.IsNullOrEmpty(Text1.Text) ||
                     string.IsNullOrEmpty(Text2.Text) ||
-                    string.IsNullOrEmpty(Text3.Text) ||
-                    string.IsNullOrEmpty(Text4.Text) ||
-                    Combo1.SelectedItem == null ||
-                    Combo2.SelectedItem == null)
+                    Combo1.SelectedItem == null)
                 {
                     MessageBox.Show("Veuillez remplir tous les champs requis.");
                 }
                 else
                 {
-                    int idService = ((Medecins)Combo1.SelectedItem).IdMedecin;
-                    int idSite = ((Patients)Combo2.SelectedItem).IdPatient;
+                    int SpecialiteId = ((Specialites)Combo1.SelectedItem).Medecins;
 
-                    Ajout_Salaries nouvelAjoutSalarie = new Ajout_Salaries
+                    Ajouter_Medecin nouvelAjouter_Medecine = new Ajouter_Medecin
                     {
                         Nom = Text1.Text,
                         Prenom = Text2.Text,
-                        Telephone_fixe = Text3.Text,
-                        Telephone_portable = Text4.Text,
-                        Email = Text5.Text,
-                        IDService = idService,
-                        IDSite = idSite
+                        SpecialiteId = SpecialiteId,
                     };
 
                     bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelAjoutSalarie);
@@ -138,7 +100,7 @@ namespace WpfApp08
 
 
 
-        private async Task<bool> EnvoyerDonneesAvecAPI(Ajout_Salaries ajoutSalarie)
+        private async Task<bool> EnvoyerDonneesAvecAPI(Ajouter_Medecin ajoutSalarie)
         {
             try
             {

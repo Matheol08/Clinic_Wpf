@@ -19,7 +19,7 @@
 
         <Button Click="MAJ_Click" Content="Mettre à jour" HorizontalAlignment="Left" Height="27" Margin="620,128,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Background="#FF383660" Foreground="White" BorderBrush="#FF383660"/>
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="16,209,0,0" VerticalAlignment="Top" Width="20" Click="RetourButton_Click" Grid.Row="1"/>
-        <DataGrid AutoGenerateColumns="False" x:Name="DataGrid1" CanUserAddRows="true"  HorizontalAlignment="Left" Height="178" Margin="155,19,0,0" VerticalAlignment="Top" Width="364" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1">
+        <DataGrid AutoGenerateColumns="False" x:Name="DataGrid1" CanUserAddRows="true"  HorizontalAlignment="Left" Height="203" Margin="125,5,0,0" VerticalAlignment="Top" Width="437" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="FontSize" Value="20"/>
@@ -28,8 +28,6 @@
         </DataGrid>
         <Button Click="Ajouter_Click" Content="Ajouter" HorizontalAlignment="Left" Height="27" Margin="620,40,0,0" VerticalAlignment="Top" Width="74" Grid.Row="1" Background="#FF3DDDC2" BorderBrush="#FF3DDDC2"/>
         <Button Click="Supprimer_Click" Content="Supprimer" HorizontalAlignment="Left" Height="27" Margin="621,171,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Background="#FFFC6586" BorderBrush="#FFFC6586"/>
-        <TextBox x:Name="Ville" HorizontalAlignment="Left" Height="16" Margin="280,39,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121"/>
-        <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="247,37,0,0" TextWrapping="Wrap" Text="Ville:" VerticalAlignment="Top" Width="33" Background="#FF0F0F2D" Foreground="White"/>
         <Button Content="Actualiser"
             Click="Actualiser"
             HorizontalAlignment="Left"

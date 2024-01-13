@@ -21,24 +21,19 @@ namespace WpfApp08
             PageAcceuil.Show();
             this.Close();
         }
-        private void Button_site(object sender, RoutedEventArgs e)
+        private void Button_specialite(object sender, RoutedEventArgs e)
         {
             CRUDSpecialite Pagesite = new CRUDSpecialite();
             Pagesite.Show();
             this.Close();
         }
-        private void Button_service(object sender, RoutedEventArgs e)
+        private void Button_medecin(object sender, RoutedEventArgs e)
         {
             CRUDMedecin Pagesite = new CRUDMedecin();
             Pagesite.Show();
             this.Close();
         }
-        private void Button_utilisateur(object sender, RoutedEventArgs e)
-        {
-            CRUDRendezVous PageEmploye = new CRUDRendezVous();
-            PageEmploye.Show();
-            this.Close();
-        }
+       
 
        
     }
