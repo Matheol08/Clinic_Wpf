@@ -37,7 +37,7 @@ namespace WpfApp08
         }
         private void rdv(object sender, RoutedEventArgs e)
         {
-            Acceuil nouvelleFenetre = new Acceuil();
+            Accueil nouvelleFenetre = new Accueil();
 
             nouvelleFenetre.Show();
             this.Close();

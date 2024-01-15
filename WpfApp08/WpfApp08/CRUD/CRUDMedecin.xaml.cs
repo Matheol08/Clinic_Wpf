@@ -28,34 +28,13 @@ namespace WpfApp08
             Medecins = new ObservableCollection<Medecins>();
             DataGrid1.ItemsSource = Medecins;
         }
-        private async void Ajouter_Click(object sender, RoutedEventArgs e)
+        private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
             Ajouter_Medecin pageIdMedecin = new Ajouter_Medecin();
             pageIdMedecin.Show();
             this.Close();
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int IdMedecin)
-        {
-            try
-            {
-                string apiUrl = $"https://localhost:7152/api/sites/{IdMedecin}";
-
-                using (HttpClient client = new HttpClient())
-                {
-                    var response = await client.DeleteAsync(apiUrl);
-                    CRUDMedecin pageIdMedecin = new CRUDMedecin();
-                    pageIdMedecin.Show();
-                    this.Close();
-                    return response.IsSuccessStatusCode;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de la suppression : {ex.Message}");
-                return false;
-            }
-        }
 
 
         private async Task<bool> SupprimerDonneesAvecAPI(int IdMedecin)
@@ -124,7 +103,7 @@ namespace WpfApp08
 
                 using (var context = new AnnuaireContext(optionsBuilder.Options))
                 {
-                    int count = await context.RendezVous.CountAsync(s => s.IDMedecin == IdMedecin);
+                    int count = await context.Medecins.CountAsync(s => s.IdMedecin == IdMedecin);
 
                     return count > 0;
                 }
@@ -226,3 +205,5 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
+    }
+}

@@ -98,15 +98,16 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int idService = ((Medecins)Combo1.SelectedItem).IdPatient;
-                    int idSite = ((Patients)Combo2.SelectedItem).MedecinId;
+                    int IdPatient = ((Patients)Combo1.SelectedItem).IdPatient;
+                    int MedecinId = ((Medecins)Combo2.SelectedItem).IdMedecin;
 
-                    Ajouter_RendezVous nouveau_RendezVous = new Ajouter_RendezVous
+                    RendezVous nouveau_RendezVous = new RendezVous
                     {
-                        IdPatient = Combo1.Text,
-                        MedecinId = Combo2.Text,
-                        Telephone_fixe = Text3.Text,
-                        Telephone_portable = Text4.Text
+                        IdPatient = IdPatient,
+                        MedecinId = MedecinId,
+                        DateDebut = DateTime.Parse(date1.Text),
+                        DateFin = DateTime.Parse(date2.Text),
+                        InfosComplementaires = Text1.Text
                     };
 
                     bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveau_RendezVous);
@@ -133,7 +134,7 @@ namespace WpfApp08
 
 
 
-        private async Task<bool> EnvoyerDonneesAvecAPI(nouveau_RendezVous)
+        private async Task<bool> EnvoyerDonneesAvecAPI(RendezVous nouveau_RendezVous)
         {
             try
             {

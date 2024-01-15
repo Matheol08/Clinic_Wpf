@@ -14,7 +14,7 @@ namespace WpfApp08.Models3
         [Key]
         public int IdRendezVous { get; set; }
         [ForeignKey("IdPatient")]
-        public string IdPatient { get; set; }
+        public int IdPatient { get; set; }
         [ForeignKey("IdMedecin")]
 
         public int MedecinId { get; set; }

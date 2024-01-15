@@ -12,54 +12,44 @@ using System.Windows.Data;
 using WpfApp08.Models3;
 namespace WpfApp08
 {
-
     public partial class CRUDRendezVous : Window
     {
         public ObservableCollection<RendezVous> RendezVous { get; set; }
+
         public CRUDRendezVous()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-
             ResizeMode = ResizeMode.NoResize;
-            ChargerSalaries();
+            ChargerRendezVous();
             RendezVous = new ObservableCollection<RendezVous>();
             DataGrid1.ItemsSource = RendezVous;
         }
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            Ajouter_RendezVous Pagesite = new Ajouter_RendezVous();
-            Pagesite.Show();
+            Ajouter_RendezVous PageRendezVous = new Ajouter_RendezVous();
+            PageRendezVous.Show();
             this.Close();
         }
 
-            
-       
         private async void Supprimer_Click(object sender, RoutedEventArgs e)
         {
-            // pour obtenir la ligne sélectionnée dans le DataGrid
-            RendezVous siteSelectionne = (RendezVous)DataGrid1.SelectedItem;
+            RendezVous rendezVousSelectionne = (RendezVous)DataGrid1.SelectedItem;
 
-            if (siteSelectionne != null)
+            if (rendezVousSelectionne != null)
             {
+                int IdRendezVous = rendezVousSelectionne.IdRendezVous;
 
-                int IdRendezVous = siteSelectionne.IdRendezVous;
-
-
-                bool deleteSuccess =  await SupprimerDonneesAvecAPI(IdRendezVous);
+                bool deleteSuccess = await SupprimerDonneesAvecAPI(IdRendezVous);
 
                 if (deleteSuccess)
                 {
-
                     MessageBox.Show("Suppression réussie !");
-
-                    RendezVous.Remove(siteSelectionne);
+                    RendezVous.Remove(rendezVousSelectionne);
                 }
                 else
                 {
-
                     MessageBox.Show("Échec de la suppression.");
                 }
             }
@@ -73,16 +63,15 @@ namespace WpfApp08
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/salaries/{IdRendezVous}";
+                string apiUrl = $"https://localhost:7152/api/rendezvous/{IdRendezVous}";
 
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(apiUrl);
-                    CRUDRendezVous Pagesite = new CRUDRendezVous();
-                    Pagesite.Show();
+                    CRUDRendezVous PageRendezVous = new CRUDRendezVous();
+                    PageRendezVous.Show();
                     this.Close();
                     return response.IsSuccessStatusCode;
-
                 }
             }
             catch (Exception ex)
@@ -91,41 +80,34 @@ namespace WpfApp08
                 return false;
             }
         }
+
         private void Actualiser(object sender, RoutedEventArgs e)
         {
-            ChargerSalaries();
+            ChargerRendezVous();
         }
 
         private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             var editedRow = e.Row.Item as RendezVous;
-
-
             var nouvelleValeur = (e.EditingElement as TextBox).Text;
         }
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
+            RendezVous rendezVousSelectionne = (RendezVous)DataGrid1.SelectedItem;
 
-            RendezVous RDVSelectionne = (RendezVous)DataGrid1.SelectedItem;
-
-            if (RDVSelectionne != null)
+            if (rendezVousSelectionne != null)
             {
+                int IdRendezVous = rendezVousSelectionne.IdRendezVous;
 
-                int IdRendezVous = RDVSelectionne.IdRendezVous;
-
-
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdRendezVous, RDVSelectionne);
+                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdRendezVous, rendezVousSelectionne);
 
                 if (updateSuccess)
                 {
-
                     MessageBox.Show("Mise à jour réussie !");
                 }
                 else
                 {
-
                     MessageBox.Show("Échec de la mise à jour.");
                 }
             }
@@ -135,22 +117,20 @@ namespace WpfApp08
             }
         }
 
-
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IDSalaries, RendezVous RendezVous)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int IdRendezVous, RendezVous rendezVous)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/salaries/{IDSalaries}";
+                string apiUrl = $"https://localhost:7152/api/rendezvous/{IdRendezVous}";
 
                 using (HttpClient client = new HttpClient())
                 {
-                    var jsonData = JsonConvert.SerializeObject(RendezVous);
+                    var jsonData = JsonConvert.SerializeObject(rendezVous);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await client.PutAsync(apiUrl, content);
 
                     return response.IsSuccessStatusCode;
-
                 }
             }
             catch (Exception ex)
@@ -160,26 +140,23 @@ namespace WpfApp08
             }
         }
 
-
-
-        private async void ChargerSalaries()
+        private async void ChargerRendezVous()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/salaries";
-
+                    string apiUrl = "https://localhost:7152/api/rendezvous";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var salaries = JsonConvert.DeserializeObject<List<RendezVous>>(json);
+                        var rendezVous = JsonConvert.DeserializeObject<List<RendezVous>>(json);
 
                         DataGrid1.Columns.Clear();
 
-                        DataGrid1.ItemsSource = salaries;
+                        DataGrid1.ItemsSource = rendezVous;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Sites.Ville") });
@@ -199,6 +176,7 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Administrateur pageAcceuil = new Administrateur();

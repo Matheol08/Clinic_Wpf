@@ -16,73 +16,16 @@ namespace WpfApp08
 {
     public partial class Ajouter_Patient : Window
     {
-        public ObservableCollection<RendezVous> RendezVous { get; set; }
+        public ObservableCollection<Patients> Patients { get; set; }
         public Ajouter_Patient()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
             InitializeComponent();
-            ChargerLesServices();
-            ChargerLesSites();
-            RendezVous = new ObservableCollection<RendezVous>();
+            Patients = new ObservableCollection<Patients>();
         }
-        private async void ChargerLesSites()
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    string apiUrl = "https://localhost:7152/api/sites";
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string json = await response.Content.ReadAsStringAsync();
-                        var Patients = JsonConvert.DeserializeObject<Patients[]>(json);
 
-                        
-                        Combo2.ItemsSource = Patients;
-                        Combo2.DisplayMemberPath = "Ville";
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Erreur lors de la récupération des données : {response.ReasonPhrase}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
-            }
-        }
-        private async void ChargerLesServices()
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    string apiUrl = "https://localhost:7152/api/services";
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string json = await response.Content.ReadAsStringAsync();
-                        var Medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
-
-                        Combo1.ItemsSource = Medecins;
-                        Combo1.DisplayMemberPath = "Nom_Service";
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Erreur lors de la récupération des données : {response.ReasonPhrase}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
-            }
-        }
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
@@ -91,29 +34,21 @@ namespace WpfApp08
                 if (string.IsNullOrEmpty(Text1.Text) ||
                     string.IsNullOrEmpty(Text2.Text) ||
                     string.IsNullOrEmpty(Text3.Text) ||
-                    string.IsNullOrEmpty(Text4.Text) ||
-                    Combo1.SelectedItem == null ||
-                    Combo2.SelectedItem == null)
+                    string.IsNullOrEmpty(Text4.Text))
                 {
                     MessageBox.Show("Veuillez remplir tous les champs requis.");
                 }
                 else
                 {
-                    int idService = ((Medecins)Combo1.SelectedItem).IdMedecin;
-                    int idSite = ((Patients)Combo2.SelectedItem).IdPatient;
-
-                    Ajout_Salaries nouvelAjoutSalarie = new Ajout_Salaries
+                    Patients nouvelAjoutPatients = new Patients
                     {
                         Nom = Text1.Text,
                         Prenom = Text2.Text,
-                        Telephone_fixe = Text3.Text,
-                        Telephone_portable = Text4.Text,
-                        Email = Text5.Text,
-                        IDService = idService,
-                        IDSite = idSite
+                        Telephone = Text3.Text,
+                        Email = Text4.Text
                     };
 
-                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelAjoutSalarie);
+                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelAjoutPatients);
 
                     if (updateSuccess)
                     {
@@ -133,16 +68,13 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-
-
-
-
-        private async Task<bool> EnvoyerDonneesAvecAPI(Ajout_Salaries ajoutSalarie)
+    
+        private async Task<bool> EnvoyerDonneesAvecAPI(Patients nouvelAjoutPatients)
         {
             try
             {
                 string apiUrl = "https://localhost:7152/api/salaries";
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(ajoutSalarie);
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouvelAjoutPatients);
                 Console.WriteLine($"JSON Data: {jsonData}");
 
                 using (HttpClient client = new HttpClient())

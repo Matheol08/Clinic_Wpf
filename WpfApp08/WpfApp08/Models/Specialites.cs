@@ -16,6 +16,7 @@ namespace WpfApp08.Models4
             public int IdSpecialite { get; set; }
             public string Libelle { get; set; }
 
+
         }
 }
 

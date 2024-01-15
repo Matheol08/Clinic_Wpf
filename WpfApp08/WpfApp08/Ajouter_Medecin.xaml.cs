@@ -53,9 +53,9 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-       
 
-        private async void Ajouter(object sender, RoutedEventArgs e)
+
+        private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -67,21 +67,21 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int SpecialiteId = ((Specialites)Combo1.SelectedItem).Medecins;
+                    int SpecialiteId = ((Specialites)Combo1.SelectedItem).IdSpecialite;
 
-                    Ajouter_Medecin nouvelAjouter_Medecine = new Ajouter_Medecin
+                    Medecins nouveauMedecin = new Medecins
                     {
                         Nom = Text1.Text,
                         Prenom = Text2.Text,
                         SpecialiteId = SpecialiteId,
                     };
 
-                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelAjoutSalarie);
+                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveauMedecin);
 
                     if (updateSuccess)
                     {
                         MessageBox.Show("Mise à jour réussie !");
-                        CRUDRendezVous pageAcceuil = new CRUDRendezVous();
+                        CRUDMedecin pageAcceuil = new CRUDMedecin();
                         pageAcceuil.Show();
                         this.Close();
                     }
@@ -97,15 +97,12 @@ namespace WpfApp08
             }
         }
 
-
-
-
-        private async Task<bool> EnvoyerDonneesAvecAPI(Ajouter_Medecin ajoutSalarie)
+        private async Task<bool> EnvoyerDonneesAvecAPI(Medecins nouveauMedecin)
         {
             try
             {
                 string apiUrl = "https://localhost:7152/api/salaries";
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(ajoutSalarie);
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouveauMedecin);
                 Console.WriteLine($"JSON Data: {jsonData}");
 
                 using (HttpClient client = new HttpClient())
@@ -140,9 +137,10 @@ namespace WpfApp08
 
 
 
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CRUDRendezVous pageAcceuil = new CRUDRendezVous();
+            CRUDMedecin pageAcceuil = new CRUDMedecin();
             pageAcceuil.Show();
             this.Close();
         }

@@ -17,8 +17,8 @@
         <ComboBox x:Name="Combo2" HorizontalAlignment="Left" Margin="154,28,0,0" VerticalAlignment="Top" Width="120"/>
         <Button Click="Ajouter_Click" Content="Ajouter" HorizontalAlignment="Left" Margin="210,406,0,0" VerticalAlignment="Top" Height="28" Width="66" Foreground="#FF080101" Background="#FF3DDDC2" BorderBrush="#FF3DDDC2"/>
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="21,406,0,0" VerticalAlignment="Top" Width="20" Click="Button_Click"/>
-        <DatePicker HorizontalAlignment="Left" Height="32" Margin="150,110,0,0" VerticalAlignment="Top" Width="158"/>
-        <DatePicker HorizontalAlignment="Left" Height="23" Margin="150,165,0,0" VerticalAlignment="Top" Width="157"/>
+        <DatePicker x:Name="date1" HorizontalAlignment="Left" Height="32" Margin="150,110,0,0" VerticalAlignment="Top" Width="158"/>
+        <DatePicker x:Name="date2" HorizontalAlignment="Left" Height="23" Margin="150,165,0,0" VerticalAlignment="Top" Width="157"/>
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="30,117,0,0" TextWrapping="Wrap" Text="Debut:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White"/>
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="30,168,0,0" TextWrapping="Wrap" Text="Fin:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White"/>
 

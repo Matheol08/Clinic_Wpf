@@ -14,8 +14,8 @@
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="35,247,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White"/>
         <TextBox x:Name="Text1" HorizontalAlignment="Left" Margin="155,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
         <TextBox x:Name="Text2" HorizontalAlignment="Left" Margin="155,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
-        <TextBox x:Name="Text4" HorizontalAlignment="Left" Margin="155,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
-        <TextBox x:Name="Text5" HorizontalAlignment="Left" Margin="155,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
+        <TextBox x:Name="Text3" HorizontalAlignment="Left" Margin="155,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
+        <TextBox x:Name="Text4" HorizontalAlignment="Left" Margin="155,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="false"/>
         <Button Click="Ajouter_Click" Content="Ajouter" HorizontalAlignment="Left" Margin="209,306,0,0" VerticalAlignment="Top" Height="28" Width="66" Foreground="#FF080101" Background="#FF3DDDC2" BorderBrush="#FF3DDDC2"/>
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="35,296,0,0" VerticalAlignment="Top" Width="20" Click="Button_Click"/>
 

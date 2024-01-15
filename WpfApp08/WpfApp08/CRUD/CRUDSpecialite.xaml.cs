@@ -13,41 +13,37 @@ namespace WpfApp08
 {
     public partial class CRUDSpecialite : Window
     {
-         public ObservableCollection<Specialites> Specialites { get; set; }
+        public ObservableCollection<Specialites> Specialites { get; set; }
+
         public CRUDSpecialite()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-
             ResizeMode = ResizeMode.NoResize;
-            Chargerlesservices();
+            ChargerLesSpecialites();
             Specialites = new ObservableCollection<Specialites>();
             DataGrid1.ItemsSource = Specialites;
         }
 
-
-
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Nom_Service.Text) )
+            if (string.IsNullOrEmpty(Nom_Service.Text))
             {
                 MessageBox.Show("Veuillez remplir le champ service.");
             }
             else
             {
+                string NouvelleSpecialite = Nom_Service.Text;
 
-                string Nouveasite = Nom_Service.Text;
-
-                Specialites nouveauSite = new Specialites
+                Specialites nouvelleSpecialite = new Specialites
                 {
-                    Libelle = Nouveasite,
-
+                    Libelle = NouvelleSpecialite,
                 };
 
-                Specialites.Add(nouveauSite);
+                Specialites.Add(nouvelleSpecialite);
 
-                bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveauSite);
+                bool updateSuccess = await EnvoyerDonneesAvecAPI(nouvelleSpecialite);
 
                 if (updateSuccess)
                 {
@@ -59,15 +55,14 @@ namespace WpfApp08
                 }
             }
         }
-        private async Task<bool> EnvoyerDonneesAvecAPI(Specialites Specialites)
+
+        private async Task<bool> EnvoyerDonneesAvecAPI(Specialites specialite)
         {
             try
             {
+                string apiUrl = "https://localhost:7152/api/specialites";
 
-                string apiUrl = "https://localhost:7152/api/services";
-
-
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Specialites);
+                string jsonData = JsonConvert.SerializeObject(specialite);
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -81,20 +76,20 @@ namespace WpfApp08
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"Erreur lors de la mise à jour : {ex.Message}");
                 return false;
             }
         }
+
         private async void Supprimer_Click(object sender, RoutedEventArgs e)
         {
-            Specialites serviceSelectionne = (Specialites)DataGrid1.SelectedItem;
+            Specialites specialiteSelectionnee = (Specialites)DataGrid1.SelectedItem;
 
-            if (serviceSelectionne != null)
+            if (specialiteSelectionnee != null)
             {
-                int serviceId = serviceSelectionne.IdSpecialite;
+                int specialiteId = specialiteSelectionnee.IdSpecialite;
 
-                bool isAssigned = await VerifierAssignationSalaries(serviceId);
+                bool isAssigned = await VerifierAssignationSalaries(specialiteId);
 
                 if (isAssigned)
                 {
@@ -102,12 +97,12 @@ namespace WpfApp08
                 }
                 else
                 {
-                    bool deleteSuccess = await SupprimerDonneesAvecAPI(serviceId);
+                    bool deleteSuccess = await SupprimerDonneesAvecAPI(specialiteId);
 
                     if (deleteSuccess)
                     {
                         MessageBox.Show("Suppression réussie !");
-                        Specialites.Remove(serviceSelectionne);
+                        Specialites.Remove(specialiteSelectionnee);
                     }
                     else
                     {
@@ -121,8 +116,7 @@ namespace WpfApp08
             }
         }
 
-       
-        private async Task<bool> VerifierAssignationSalaries(int serviceId)
+        private async Task<bool> VerifierAssignationSalaries(int specialiteId)
         {
             try
             {
@@ -131,7 +125,7 @@ namespace WpfApp08
 
                 using (var context = new AnnuaireContext(optionsBuilder.Options))
                 {
-                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == serviceId);
+                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == specialiteId);
 
                     return count > 0;
                 }
@@ -142,11 +136,12 @@ namespace WpfApp08
                 return false;
             }
         }
-        private async Task<bool> SupprimerDonneesAvecAPI(int serviceId)
+
+        private async Task<bool> SupprimerDonneesAvecAPI(int specialiteId)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/services/{serviceId}";
+                string apiUrl = $"https://localhost:7152/api/specialites/{specialiteId}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -155,7 +150,6 @@ namespace WpfApp08
                     Pagesite.Show();
                     this.Close();
                     return response.IsSuccessStatusCode;
-                   
                 }
             }
             catch (Exception ex)
@@ -165,37 +159,28 @@ namespace WpfApp08
             }
         }
 
-
         private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             var editedRow = e.Row.Item as Specialites;
-
-
             var nouvelleValeur = (e.EditingElement as TextBox).Text;
         }
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
+            Specialites specialiteSelectionnee = (Specialites)DataGrid1.SelectedItem;
 
-            Specialites serviceSelectionne = (Specialites)DataGrid1.SelectedItem;
-
-            if (serviceSelectionne != null)
+            if (specialiteSelectionnee != null)
             {
+                int specialiteID = specialiteSelectionnee.IdSpecialite;
 
-                int serviceID = serviceSelectionne.IdSpecialite;
-
-
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(serviceID, serviceSelectionne);
+                bool updateSuccess = await MettreAJourDonneesAvecAPI(specialiteID, specialiteSelectionnee);
 
                 if (updateSuccess)
                 {
-
                     MessageBox.Show("Mise à jour réussie !");
                 }
                 else
                 {
-
                     MessageBox.Show("Échec de la mise à jour.");
                 }
             }
@@ -205,22 +190,20 @@ namespace WpfApp08
             }
         }
 
-
-        private async Task<bool> MettreAJourDonneesAvecAPI(int serviceID, Specialites Service)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int specialiteID, Specialites specialite)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/services/{serviceID}";
+                string apiUrl = $"https://localhost:7152/api/specialites/{specialiteID}";
 
                 using (HttpClient client = new HttpClient())
                 {
-                    var jsonData = JsonConvert.SerializeObject(Service);
+                    var jsonData = JsonConvert.SerializeObject(specialite);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await client.PutAsync(apiUrl, content);
-                   
+
                     return response.IsSuccessStatusCode;
-                   
                 }
             }
             catch (Exception ex)
@@ -232,25 +215,25 @@ namespace WpfApp08
 
         private void Actualiser(object sender, RoutedEventArgs e)
         {
-            Chargerlesservices();
+            ChargerLesSpecialites();
         }
 
-        private async void Chargerlesservices()
+        private async void ChargerLesSpecialites()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/services";
+                    string apiUrl = "https://localhost:7152/api/specialites";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var service = JsonConvert.DeserializeObject<Specialites[]>(json);
+                        var specialites = JsonConvert.DeserializeObject<Specialites[]>(json);
 
                         DataGrid1.Columns.Clear();
-                        DataGrid1.ItemsSource = service;
+                        DataGrid1.ItemsSource = specialites;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Service", Binding = new Binding("Nom_Service") });
                     }
                     else
@@ -258,21 +241,18 @@ namespace WpfApp08
                         MessageBox.Show($"Erreur lors de la récupération des données : {response.ReasonPhrase}");
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-            private void RetourButton_Click(object sender, RoutedEventArgs e)
-            {
-                Administrateur Pagesite = new Administrateur();
-                Pagesite.Show();
-                this.Close();
-            }
 
-        
-
+        private void RetourButton_Click(object sender, RoutedEventArgs e)
+        {
+            Administrateur Pagesite = new Administrateur();
+            Pagesite.Show();
+            this.Close();
+        }
     }
 }

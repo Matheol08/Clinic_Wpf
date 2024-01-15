@@ -12,54 +12,44 @@ using System.Windows.Data;
 using WpfApp08.Models2;
 namespace WpfApp08
 {
-
     public partial class CRUDPatient : Window
     {
         public ObservableCollection<Patients> Patients { get; set; }
+
         public CRUDPatient()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-
             ResizeMode = ResizeMode.NoResize;
-            ChargerSalaries();
+            ChargerPatients();
             Patients = new ObservableCollection<Patients>();
             DataGrid1.ItemsSource = Patients;
         }
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            Ajouter_Salarie Pagesite = new Ajouter_Salarie();
-            Pagesite.Show();
+            Ajouter_Patient PagePatient = new Ajouter_Patient();
+            PagePatient.Show();
             this.Close();
         }
 
-            
-       
         private async void Supprimer_Click(object sender, RoutedEventArgs e)
         {
-            // pour obtenir la ligne sélectionnée dans le DataGrid
-            Patients siteSelectionne = (Patients)DataGrid1.SelectedItem;
+            Patients patientSelectionne = (Patients)DataGrid1.SelectedItem;
 
-            if (siteSelectionne != null)
+            if (patientSelectionne != null)
             {
+                int IdMedecin = patientSelectionne.IdPatient;
 
-                int salariesId = siteSelectionne.IdPatient;
-
-
-                bool deleteSuccess =  await SupprimerDonneesAvecAPI(salariesId);
+                bool deleteSuccess = await SupprimerDonneesAvecAPI(IdMedecin);
 
                 if (deleteSuccess)
                 {
-
                     MessageBox.Show("Suppression réussie !");
-
-                    Patients.Remove(siteSelectionne);
+                    Patients.Remove(patientSelectionne);
                 }
                 else
                 {
-
                     MessageBox.Show("Échec de la suppression.");
                 }
             }
@@ -69,20 +59,19 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int salariesId)
+        private async Task<bool> SupprimerDonneesAvecAPI(int IdMedecin)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/salaries/{salariesId}";
+                string apiUrl = $"https://localhost:7152/api/patients/{IdMedecin}";
 
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(apiUrl);
-                    CRUDPatient Pagesite = new CRUDPatient();
-                    Pagesite.Show();
+                    CRUDPatient PagePatient = new CRUDPatient();
+                    PagePatient.Show();
                     this.Close();
                     return response.IsSuccessStatusCode;
-
                 }
             }
             catch (Exception ex)
@@ -91,41 +80,34 @@ namespace WpfApp08
                 return false;
             }
         }
+
         private void Actualiser(object sender, RoutedEventArgs e)
         {
-            ChargerSalaries();
+            ChargerPatients();
         }
 
         private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             var editedRow = e.Row.Item as Patients;
-
-
             var nouvelleValeur = (e.EditingElement as TextBox).Text;
         }
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
+            Patients patientSelectionne = (Patients)DataGrid1.SelectedItem;
 
-            Patients SalariesSelectionne = (Patients)DataGrid1.SelectedItem;
-
-            if (SalariesSelectionne != null)
+            if (patientSelectionne != null)
             {
+                int IdMedecin = patientSelectionne.IdPatient;
 
-                int IdPatient = SalariesSelectionne.IdPatient;
-
-
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdPatient, SalariesSelectionne);
+                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdMedecin, patientSelectionne);
 
                 if (updateSuccess)
                 {
-
                     MessageBox.Show("Mise à jour réussie !");
                 }
                 else
                 {
-
                     MessageBox.Show("Échec de la mise à jour.");
                 }
             }
@@ -135,22 +117,20 @@ namespace WpfApp08
             }
         }
 
-
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IDSalaries, Patients Salaries)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int IdMedecin, Patients patient)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/salaries/{IDSalaries}";
+                string apiUrl = $"https://localhost:7152/api/patients/{IdMedecin}";
 
                 using (HttpClient client = new HttpClient())
                 {
-                    var jsonData = JsonConvert.SerializeObject(Salaries);
+                    var jsonData = JsonConvert.SerializeObject(patient);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await client.PutAsync(apiUrl, content);
 
                     return response.IsSuccessStatusCode;
-
                 }
             }
             catch (Exception ex)
@@ -160,29 +140,26 @@ namespace WpfApp08
             }
         }
 
-
-
-        private async void ChargerSalaries()
+        private async void ChargerPatients()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/salaries";
-
+                    string apiUrl = "https://localhost:7152/api/patients";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var salaries = JsonConvert.DeserializeObject<List<Patients>>(json);
+                        var patients = JsonConvert.DeserializeObject<List<Patients>>(json);
 
                         DataGrid1.Columns.Clear();
 
-                        DataGrid1.ItemsSource = salaries;
+                        DataGrid1.ItemsSource = patients;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Sites.Ville") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Ville") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephoneFixe", Binding = new Binding("Telephone_fixe") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephonePortable", Binding = new Binding("Telephone_portable") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Email", Binding = new Binding("Email") });
@@ -199,10 +176,11 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Administrateur pageAcceuil = new Administrateur();
-            pageAcceuil.Show();
+            Administrateur pageAccueil = new Administrateur();
+            pageAccueil.Show();
             this.Close();
         }
     }
