@@ -101,7 +101,7 @@ namespace WpfApp08
         {
             try
             {
-                string apiUrl = "https://localhost:7152/api/salaries";
+                string apiUrl = "https://localhost:7152/api/medecin";
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouveauMedecin);
                 Console.WriteLine($"JSON Data: {jsonData}");
 
@@ -145,9 +145,6 @@ namespace WpfApp08
             this.Close();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

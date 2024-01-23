@@ -98,10 +98,10 @@ namespace WpfApp08
         {
             try
             {
-                var optionsBuilder = new DbContextOptionsBuilder<AnnuaireContext>();
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Annuaire;Trusted_Connection=True;TrustServerCertificate=true");
+                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
 
-                using (var context = new AnnuaireContext(optionsBuilder.Options))
+                using (var context = new ClinicContext(optionsBuilder.Options))
                 {
                     int count = await context.Medecins.CountAsync(s => s.IdMedecin == IdMedecin);
 
@@ -193,6 +193,7 @@ namespace WpfApp08
                         DataGrid1.ItemsSource = medecins;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Specialite", Binding = new Binding("Medecins.Libelle") });
                     }
                     else
                     {

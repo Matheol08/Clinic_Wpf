@@ -157,13 +157,13 @@ namespace WpfApp08
                         DataGrid1.Columns.Clear();
 
                         DataGrid1.ItemsSource = rendezVous;
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Sites.Ville") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephoneFixe", Binding = new Binding("Telephone_fixe") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephonePortable", Binding = new Binding("Telephone_portable") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Email", Binding = new Binding("Email") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Service", Binding = new Binding("Service_Employe.Nom_Service") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Patients.Nom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Patients.Prenom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Medecins.Nom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "DateDebut", Binding = new Binding("DateDebut") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "DateFin", Binding = new Binding("DateFin") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Infos", Binding = new Binding("InfoComplementaire") });
+
                     }
                     else
                     {

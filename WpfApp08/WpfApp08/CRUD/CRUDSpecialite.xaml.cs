@@ -120,10 +120,10 @@ namespace WpfApp08
         {
             try
             {
-                var optionsBuilder = new DbContextOptionsBuilder<AnnuaireContext>();
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Annuaire;Trusted_Connection=True;TrustServerCertificate=true");
+                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
 
-                using (var context = new AnnuaireContext(optionsBuilder.Options))
+                using (var context = new ClinicContext(optionsBuilder.Options))
                 {
                     int count = await context.Specialites.CountAsync(s => s.IdSpecialite == specialiteId);
 

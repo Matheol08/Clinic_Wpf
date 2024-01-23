@@ -15,7 +15,7 @@ namespace WpfApp08
 {
     public partial class Utilisateur : Window
     {
-        private AnnuaireContext dbContext;
+        private ClinicContext dbContext;
         public Utilisateur()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace WpfApp08
             ChargerLesSites();
             ChargerSalaries();
             ChargerLesServices();
-            dbContext = new AnnuaireContext(new DbContextOptions<AnnuaireContext>());
+            dbContext = new ClinicContext(new DbContextOptions<ClinicContext>());
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)

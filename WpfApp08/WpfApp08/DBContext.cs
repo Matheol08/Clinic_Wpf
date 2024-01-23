@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace WpfApp08
 {
-    public class AnnuaireContext : DbContext
+    public class ClinicContext : DbContext
     {
-        public AnnuaireContext(DbContextOptions<AnnuaireContext> options)
+        public ClinicContext(DbContextOptions<ClinicContext> options)
             : base(options)
         {
 

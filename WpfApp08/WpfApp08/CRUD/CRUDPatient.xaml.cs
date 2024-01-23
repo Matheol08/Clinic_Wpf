@@ -39,9 +39,9 @@ namespace WpfApp08
 
             if (patientSelectionne != null)
             {
-                int IdMedecin = patientSelectionne.IdPatient;
+                int IdPatient = patientSelectionne.IdPatient;
 
-                bool deleteSuccess = await SupprimerDonneesAvecAPI(IdMedecin);
+                bool deleteSuccess = await SupprimerDonneesAvecAPI(IdPatient);
 
                 if (deleteSuccess)
                 {
@@ -59,11 +59,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int IdMedecin)
+        private async Task<bool> SupprimerDonneesAvecAPI(int IdPatient)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/patients/{IdMedecin}";
+                string apiUrl = $"https://localhost:7152/api/patients/{IdPatient}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -98,9 +98,9 @@ namespace WpfApp08
 
             if (patientSelectionne != null)
             {
-                int IdMedecin = patientSelectionne.IdPatient;
+                int IdPatient = patientSelectionne.IdPatient;
 
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdMedecin, patientSelectionne);
+                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdPatient, patientSelectionne);
 
                 if (updateSuccess)
                 {
@@ -117,11 +117,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IdMedecin, Patients patient)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int IdPatient, Patients patient)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/patients/{IdMedecin}";
+                string apiUrl = $"https://localhost:7152/api/patients/{IdPatient}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -159,11 +159,8 @@ namespace WpfApp08
                         DataGrid1.ItemsSource = patients;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Ville") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephoneFixe", Binding = new Binding("Telephone_fixe") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephonePortable", Binding = new Binding("Telephone_portable") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Telephone", Binding = new Binding("Telephone") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Email", Binding = new Binding("Email") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Service", Binding = new Binding("Service_Employe.Nom_Service") });
                     }
                     else
                     {

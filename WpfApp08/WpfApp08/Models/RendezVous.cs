@@ -13,7 +13,7 @@ namespace WpfApp08.Models3
         [Required]
         [Key]
         public int IdRendezVous { get; set; }
-        [ForeignKey("IdPatient")]
+        [ForeignKey("IdPatient")]   
         public int IdPatient { get; set; }
         [ForeignKey("IdMedecin")]
 
