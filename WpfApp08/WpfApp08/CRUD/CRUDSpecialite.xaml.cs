@@ -28,13 +28,13 @@ namespace WpfApp08
 
         private async void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Nom_Service.Text))
+            if (string.IsNullOrEmpty(Nom_Spe.Text))
             {
-                MessageBox.Show("Veuillez remplir le champ service.");
+                MessageBox.Show("Veuillez remplir le champ Specialité.");
             }
             else
             {
-                string NouvelleSpecialite = Nom_Service.Text;
+                string NouvelleSpecialite = Nom_Spe.Text;
 
                 Specialites nouvelleSpecialite = new Specialites
                 {
@@ -89,11 +89,11 @@ namespace WpfApp08
             {
                 int specialiteId = specialiteSelectionnee.IdSpecialite;
 
-                bool isAssigned = await VerifierAssignationSalaries(specialiteId);
+                bool isAssigned = await VerifierAssignationMedecin(specialiteId);
 
                 if (isAssigned)
                 {
-                    MessageBox.Show("Échec de la suppression. Le service est assigné à des salariés.");
+                    MessageBox.Show("Échec de la suppression. La Spécialité est assigné à un Médecin.");
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> VerifierAssignationSalaries(int specialiteId)
+        private async Task<bool> VerifierAssignationMedecin(int specialiteId)
         {
             try
             {
@@ -146,8 +146,8 @@ namespace WpfApp08
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(apiUrl);
-                    CRUDSpecialite Pagesite = new CRUDSpecialite();
-                    Pagesite.Show();
+                    CRUDSpecialite Pagespe = new CRUDSpecialite();
+                    Pagespe.Show();
                     this.Close();
                     return response.IsSuccessStatusCode;
                 }
@@ -159,11 +159,11 @@ namespace WpfApp08
             }
         }
 
-        private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            var editedRow = e.Row.Item as Specialites;
-            var nouvelleValeur = (e.EditingElement as TextBox).Text;
-        }
+        //private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    var editedRow = e.Row.Item as Specialites;
+        //    var nouvelleValeur = (e.EditingElement as TextBox).Text;
+        //}
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {

@@ -29,8 +29,8 @@
 
         <Button Click="Ajouter_Click" Content="Ajouter" HorizontalAlignment="Left" Height="27" Margin="520,32,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Background="#FF3DDDC2" BorderBrush="#FF3DDDC2" Foreground="Black"/>
         <Button Click="Supprimer_Click" Content="Supprimer" HorizontalAlignment="Left" Height="27" Margin="520,155,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Background="#FFFC6586" BorderBrush="#FFFC6586"/>
-        <TextBox x:Name="Nom_Service" HorizontalAlignment="Center" Height="16" Margin="0,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121"/>
-        <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="129,53,0,0" TextWrapping="Wrap" Text="Nom de la specialité:" VerticalAlignment="Top" Width="122" Background="#FF0F0F2D" Foreground="White"/>
+        <TextBox x:Name="Nom_Spe" HorizontalAlignment="Center" Height="16" Margin="0,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121"/>
+        <TextBox IsReadOnly="True" BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="129,53,0,0" TextWrapping="Wrap" Text="Nom de la specialité:" VerticalAlignment="Top" Width="122" Background="#FF0F0F2D" Foreground="White"/>
         <Button Content="Actualiser"
             Click="Actualiser"
             HorizontalAlignment="Left"

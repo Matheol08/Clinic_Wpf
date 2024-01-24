@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WpfApp08.Models4;
 using WpfApp08.Models1;
 using WpfApp08.Models3;
+using WpfApp08.Models2;
 
 namespace WpfApp08
 {
@@ -22,9 +23,9 @@ namespace WpfApp08
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             ResizeMode = ResizeMode.NoResize;
-            ChargerLesSites();
-            ChargerSalaries();
-            ChargerLesServices();
+            ChargerLesPatients();
+            ChargerRDV();
+            ChargerLesMedecins();
             dbContext = new ClinicContext(new DbContextOptions<ClinicContext>());
 
         }
@@ -36,39 +37,39 @@ namespace WpfApp08
         }
         private void Actualiser(object sender, RoutedEventArgs e)
         {
-            ChargerSalaries();
+            ChargerRDV();
         }
 
         private async void Bouton_Rechercher(object sender, RoutedEventArgs e)
         {
             using (HttpClient client = new HttpClient())
             {
-                if (ComboVille.SelectedItem != null && ComboService.SelectedItem != null)
+                if (ComboPatients.SelectedItem != null && ComboMedecins.SelectedItem != null)
                 {
-                    var selectedSite = (Specialites)ComboVille.SelectedItem;
-                    var selectedService = (Medecins)ComboService.SelectedItem;
+                    var selectedPatient = (Patients)ComboPatients.SelectedItem;
+                    var selectedMedecin = (Medecins)ComboMedecins.SelectedItem;
 
-                    string selectedVille = selectedSite.Libelle;
-                    string selectedNomService = selectedService.Nom;
+                    string selectedNomPatient = selectedPatient.Nom;
+                    string selectedNomMedecin = selectedMedecin.Nom;
 
-                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSiteEtService?ville={selectedVille}&nomService={selectedNomService}";
+                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSiteEtService?ville={selectedNomPatient}&nomMedecin={selectedNomMedecin}";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
-                else if (ComboVille.SelectedItem != null)
+                else if (ComboPatients.SelectedItem != null)
                 {
-                    var selectedSite = (Specialites)ComboVille.SelectedItem;
-                    string selectedVille = selectedSite.Libelle;
+                    var selectedSite = (Specialites)ComboPatients.SelectedItem;
+                    string selectedPatient = selectedSite.Libelle;
 
-                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSite?ville={selectedVille}";
+                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSite?ville={selectedPatient}";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
-                else if (ComboService.SelectedItem != null)
+                else if (ComboMedecins.SelectedItem != null)
                 {
-                    var selectedService = (Medecins)ComboService.SelectedItem;
+                    var selectedService = (Medecins)ComboMedecins.SelectedItem;
                     string selectedNomService = selectedService.Nom;
 
                     string apiUrl = $"https://localhost:7152/api/salaries/rechercheService?Nom_Service={selectedNomService}";
@@ -76,13 +77,14 @@ namespace WpfApp08
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
-              
-                
-                    string searchTerm = RechercherText.Text;
 
-                    if (!string.IsNullOrEmpty(searchTerm))
+
+                string searchTerm = Datedebut.Text;
+                string searchTerm2 = Datefin.Text;
+
+                    if (!string.IsNullOrEmpty(searchTerm)|| !string.IsNullOrEmpty(searchTerm2))
                     {
-                        string apiUrl = $"https://localhost:7152/api/salaries/rechercheByNameORFirstName?searchTerm={searchTerm}";
+                        string apiUrl = $"https://localhost:7152/api/salaries/rechercherdvpardate?searchTerm2={searchTerm2}?searchTerm={searchTerm}";
 
                         HttpResponseMessage response = await client.GetAsync(apiUrl);
                         HandleApiResponse(response);
@@ -107,40 +109,39 @@ namespace WpfApp08
                 MessageBox.Show("Erreur lors de la requête API.");
             }
 
-            ComboVille.SelectedItem = null;
-            ComboService.SelectedItem = null;
+            ComboPatients.SelectedItem = null;
+            ComboMedecins.SelectedItem = null;
         }
 
 
 
 
 
-        private async void ChargerSalaries()
+        private async void ChargerRDV()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/salaries";
+                    string apiUrl = "https://localhost:7152/api/RDV";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var salaries = JsonConvert.DeserializeObject<List<RendezVous>>(json);
+                        var rdv = JsonConvert.DeserializeObject<List<RendezVous>>(json);
 
                         DataGrid1.Columns.Clear();
 
-                        DataGrid1.ItemsSource = salaries;
+                        DataGrid1.ItemsSource = rdv;
 
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Ville", Binding = new Binding("Sites.Ville") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephoneFixe", Binding = new Binding("Telephone_fixe") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "TelephonePortable", Binding = new Binding("Telephone_portable") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Email", Binding = new Binding("Email") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Service", Binding = new Binding("Service_Employe.Nom_Service") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom.Patients") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom.Patients") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Nom.Medecins") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Debut", Binding = new Binding("DateDebut") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Fin", Binding = new Binding("DateFin") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Information Complementaire", Binding = new Binding("InfosComplementaires") });
 
                     }
                     else
@@ -154,23 +155,23 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-        private async void ChargerLesSites()
+        private async void ChargerLesPatients()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/sites";
+                    string apiUrl = "https://localhost:7152/api/patients";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var sites = JsonConvert.DeserializeObject<Specialites[]>(json);
+                        var Patients = JsonConvert.DeserializeObject<Patients[]>(json);
 
 
-                        ComboVille.ItemsSource = sites;
-                        ComboVille.DisplayMemberPath = "Ville";
+                        ComboPatients.ItemsSource = Patients;
+                        ComboPatients.DisplayMemberPath = "Patients";
                     }
                     else
                     {
@@ -183,22 +184,22 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-        private async void ChargerLesServices()
+        private async void ChargerLesMedecins()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/services";
+                    string apiUrl = "https://localhost:7152/api/medecins";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        var services = JsonConvert.DeserializeObject<Medecins[]>(json);
+                        var medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
 
-                        ComboService.ItemsSource = services;
-                        ComboService.DisplayMemberPath = "Nom_Service";
+                        ComboMedecins.ItemsSource = medecins;
+                        ComboMedecins.DisplayMemberPath = "Nom_Medecins";
                     }
                     else
                     {
@@ -212,9 +213,6 @@ namespace WpfApp08
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+       
     }
 }

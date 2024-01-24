@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Utilisateur" Height="500" Width="1000"  WindowStartupLocation="CenterScreen" Background="#FF0F0F2D"
         WindowStyle="None">
-    <Grid Height="434" VerticalAlignment="Bottom">
+    <Grid Height="434"  Margin="0,56,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="27*"/>
             <ColumnDefinition Width="973*"/>
@@ -29,7 +29,7 @@
             <Border Width="278" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
         </StackPanel>
 
-        <ComboBox  x:Name="ComboService" Grid.Row="0" Margin="269,76,592,66" Grid.Column="1">
+        <ComboBox  x:Name="ComboMedecins" Grid.Row="0" Margin="358,-7,503,149" Grid.Column="1">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -37,7 +37,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <ComboBox x:Name="ComboVille" Grid.Row="0" Margin="561,76,300,66" Grid.Column="1">
+        <ComboBox x:Name="ComboPatients" Grid.Row="0" Margin="479,-7,382,149" Grid.Column="1">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -45,8 +45,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <TextBox x:Name="RechercherText" HorizontalAlignment="Left"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" Height="33" Grid.Row="0" Margin="359,-14,0,0" Grid.Column="1" Background="#FFFBFBFB"/>
-        <Button Content="Rechercher" HorizontalAlignment="Left" Height="26" Margin="591,-12,0,0" VerticalAlignment="Top" Width="66" Grid.Column="1" Click ="Bouton_Rechercher" Background="#FF3DDDC2"/>
+        <Button Content="Rechercher" HorizontalAlignment="Left" Height="29" Margin="604,-7,0,0" VerticalAlignment="Top" Width="66" Grid.Column="1" Click ="Bouton_Rechercher" Background="#FF3DDDC2"/>
         <DataGrid AutoGenerateColumns="False" IsReadOnly="True" x:Name="DataGrid1" HorizontalAlignment="Left" Width="665" Grid.Column="1" Margin="150,148,0,2" Grid.RowSpan="2" Background="#FFFBFBFB"/>
 
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="4,215,0,0" VerticalAlignment="Top" Width="20" Click="Button_Click" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
@@ -55,10 +54,13 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
             Foreground="#FF030000"
-            FontWeight="Medium" Background="#FFFC6586" BorderBrush="#FF383660" Margin="278,-10,0,0"  Grid.Column="1" Height="26" Width="66"/>
-        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="267,51,0,0" TextWrapping="Wrap" Text="Medecin" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16" TextChanged="TextBox_TextChanged"/>
-        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="562,52,0,0" TextWrapping="Wrap" Text="Patient" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Height="59" Margin="409,76,0,0" VerticalAlignment="Top" Width="152"/>
+            FontWeight="Medium" Background="#FFFC6586" BorderBrush="Gray" Margin="278,-7,0,0"  Grid.Column="1" Height="29" Width="66"/>
+        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="358,-34,0,0" TextWrapping="Wrap" Text="Medecins :" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16" />
+        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="479,-34,0,0" TextWrapping="Wrap" Text="Patients :" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
+        <DatePicker x:Name="Datedebut"  Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="297,0,0,0" VerticalAlignment="Center" Width="138"/>
+        <DatePicker x:Name="Datefin" Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="535,0,0,0" VerticalAlignment="Center" Width="138"/>
+        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="297,42,0,0" TextWrapping="Wrap" Text="Date debut :" VerticalAlignment="Top" Width="110" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
+        <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="535,42,0,0" TextWrapping="Wrap" Text="Date fin :" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
 
     </Grid>
 

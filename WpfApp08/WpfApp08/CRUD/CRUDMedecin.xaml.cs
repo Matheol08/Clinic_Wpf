@@ -67,7 +67,7 @@ namespace WpfApp08
             {
                 int IdMedecin = medecinSelectionne.IdMedecin;
 
-                bool isAssigned = await VerifierAssignationSalaries(IdMedecin);
+                bool isAssigned = await VerifierAssignationRDV(IdMedecin);
 
                 if (isAssigned)
                 {
@@ -94,7 +94,7 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> VerifierAssignationSalaries(int IdMedecin)
+        private async Task<bool> VerifierAssignationRDV(int IdMedecin)
         {
             try
             {

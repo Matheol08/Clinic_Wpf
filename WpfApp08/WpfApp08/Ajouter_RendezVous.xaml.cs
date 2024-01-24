@@ -92,7 +92,10 @@ namespace WpfApp08
                 if (string.IsNullOrEmpty(Combo1.Text) ||
                     string.IsNullOrEmpty(Combo2.Text) ||
                     Combo1.SelectedItem == null ||
-                    Combo2.SelectedItem == null)
+                    Combo2.SelectedItem == null ||
+                    string.IsNullOrEmpty(date1.Text) ||
+                    string.IsNullOrEmpty(date2.Text) ||
+                    string.IsNullOrEmpty(Text1.Text))
                 {
                     MessageBox.Show("Veuillez remplir tous les champs requis.");
                 }
@@ -101,12 +104,24 @@ namespace WpfApp08
                     int IdPatient = ((Patients)Combo1.SelectedItem).IdPatient;
                     int MedecinId = ((Medecins)Combo2.SelectedItem).IdMedecin;
 
+                    DateTime startDateTime = DateTime.Parse(date1.Text);
+                    DateTime endDateTime = DateTime.Parse(date2.Text);
+
+                    
+                    bool isDoctorAvailable = await CheckExistingAppointments(MedecinId, startDateTime, endDateTime);
+
+                    if (!isDoctorAvailable)
+                    {
+                        MessageBox.Show("Le médecin est déjà en rendez-vous pendant ces horaires.");
+                        return; 
+                    }
+
                     RendezVous nouveau_RendezVous = new RendezVous
                     {
                         IdPatient = IdPatient,
                         MedecinId = MedecinId,
-                        DateDebut = DateTime.Parse(date1.Text),
-                        DateFin = DateTime.Parse(date2.Text),
+                        DateDebut = startDateTime,
+                        DateFin = endDateTime,
                         InfosComplementaires = Text1.Text
                     };
 
@@ -128,6 +143,56 @@ namespace WpfApp08
             catch (Exception ex)
             {
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
+            }
+        }
+
+        private async Task<bool> CheckExistingAppointments(int medecinId, DateTime startDateTime, DateTime endDateTime)
+        {
+            try
+            {
+                // Remplacez l'URL suivante par votre point de terminaison API réel
+                string apiUrl = "https://votreapi.com/verifierrendezvous";
+
+                // Créez un modèle ou un objet de paramètres à envoyer à votre API
+                var requestModel = new
+                {
+                    MedecinId = medecinId,
+                    StartDateTime = startDateTime,
+                    EndDateTime = endDateTime
+                };
+
+                using (HttpClient client = new HttpClient())
+                {
+                    // Convertir le modèle en JSON
+                    string jsonRequest = JsonConvert.SerializeObject(requestModel);
+
+                    // Créer le contenu de la requête
+                    StringContent content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+                    // Faire la requête API
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    // Vérifier si la requête a réussi (code 2xx)
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Convertir la réponse en booléen
+                        bool isAvailable = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
+                        return isAvailable;
+                    }
+                    else
+                    {
+                        // Gérer les erreurs si la requête n'a pas réussi
+                        // Vous pouvez également logger l'erreur ou afficher un message d'erreur
+                        Console.WriteLine($"Erreur de requête API : {response.StatusCode}");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Gérer les erreurs génériques
+                Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
+                return false;
             }
         }
 
