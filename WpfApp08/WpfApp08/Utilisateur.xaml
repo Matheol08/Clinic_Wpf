@@ -61,6 +61,8 @@
         <DatePicker x:Name="Datefin" Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="535,0,0,0" VerticalAlignment="Center" Width="138"/>
         <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="297,42,0,0" TextWrapping="Wrap" Text="Date debut :" VerticalAlignment="Top" Width="110" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
         <TextBox IsReadOnly="true" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="535,42,0,0" TextWrapping="Wrap" Text="Date fin :" VerticalAlignment="Top" Width="98" Foreground="White" Background="#FF0F0F2D" BorderBrush="#FF0F0F2D" FontSize="16"/>
+       
+
 
     </Grid>
 

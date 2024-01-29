@@ -60,7 +60,7 @@ namespace WpfApp08
         {
             try
             {
-                string apiUrl = "https://localhost:7152/api/specialites";
+                string apiUrl = "https://localhost:7152/api/Specialites";
 
                 string jsonData = JsonConvert.SerializeObject(specialite);
 
@@ -87,9 +87,9 @@ namespace WpfApp08
 
             if (specialiteSelectionnee != null)
             {
-                int specialiteId = specialiteSelectionnee.IdSpecialite;
+                int id = specialiteSelectionnee.IdSpecialite;
 
-                bool isAssigned = await VerifierAssignationMedecin(specialiteId);
+                bool isAssigned = await VerifierAssignationMedecin(id);
 
                 if (isAssigned)
                 {
@@ -97,7 +97,7 @@ namespace WpfApp08
                 }
                 else
                 {
-                    bool deleteSuccess = await SupprimerDonneesAvecAPI(specialiteId);
+                    bool deleteSuccess = await SupprimerDonneesAvecAPI(id);
 
                     if (deleteSuccess)
                     {
@@ -116,16 +116,16 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> VerifierAssignationMedecin(int specialiteId)
+        private async Task<bool> VerifierAssignationMedecin(int id)
         {
             try
             {
                 var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
+                //optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
 
                 using (var context = new ClinicContext(optionsBuilder.Options))
                 {
-                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == specialiteId);
+                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == id);
 
                     return count > 0;
                 }
@@ -137,11 +137,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int specialiteId)
+        private async Task<bool> SupprimerDonneesAvecAPI(int id)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/specialites/{specialiteId}";
+                string apiUrl = $"https://localhost:7152/api/Specialites/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -190,11 +190,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int specialiteID, Specialites specialite)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int id, Specialites specialite)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/specialites/{specialiteID}";
+                string apiUrl = $"https://localhost:7152/api/Specialites/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -224,7 +224,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/specialites";
+                    string apiUrl = "https://localhost:7152/api/Specialites";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)

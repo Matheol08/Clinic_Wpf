@@ -37,11 +37,11 @@ namespace WpfApp08
 
 
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int IdMedecin)
+        private async Task<bool> SupprimerDonneesAvecAPI(int id)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/medecins/{IdMedecin}";
+                string apiUrl = $"https://localhost:7152/api/Medecins/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -99,7 +99,7 @@ namespace WpfApp08
             try
             {
                 var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
+                //optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
 
                 using (var context = new ClinicContext(optionsBuilder.Options))
                 {
@@ -140,11 +140,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IdMedecin, Medecins medecin)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int id, Medecins medecin)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/medecins/{IdMedecin}";
+                string apiUrl = $"https://localhost:7152/api/Medecins/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -181,7 +181,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/medecins";
+                    string apiUrl = "https://localhost:7152/api/Medecins";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)

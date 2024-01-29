@@ -11,6 +11,7 @@ using WpfApp08.Models4;
 using WpfApp08.Models1;
 using WpfApp08.Models3;
 using WpfApp08.Models2;
+using System.Globalization;
 
 namespace WpfApp08
 {
@@ -52,44 +53,53 @@ namespace WpfApp08
                     string selectedNomPatient = selectedPatient.Nom;
                     string selectedNomMedecin = selectedMedecin.Nom;
 
-                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSiteEtService?ville={selectedNomPatient}&nomMedecin={selectedNomMedecin}";
+                    string apiUrl = $"https://localhost:7152/api/RendezVous/recherchePatientsEtMedecins?patientNom={selectedNomPatient}&medecinNom={selectedNomMedecin}";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
+
                 else if (ComboPatients.SelectedItem != null)
                 {
-                    var selectedSite = (Specialites)ComboPatients.SelectedItem;
-                    string selectedPatient = selectedSite.Libelle;
+                    var selectedPatient = (Patients)ComboPatients.SelectedItem;
+                    string selectedPatientNom = selectedPatient.Nom;
 
-                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheSite?ville={selectedPatient}";
+                    string apiUrl = $"https://localhost:7152/api/RendezVous/recherchePatient?PatientNom={selectedPatientNom}";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
+
                 else if (ComboMedecins.SelectedItem != null)
                 {
-                    var selectedService = (Medecins)ComboMedecins.SelectedItem;
-                    string selectedNomService = selectedService.Nom;
+                    var selectedMedecins = (Medecins)ComboMedecins.SelectedItem;
+                    string selectedNomMedecins = selectedMedecins.Nom;
 
-                    string apiUrl = $"https://localhost:7152/api/salaries/rechercheService?Nom_Service={selectedNomService}";
+                    string apiUrl = $"https://localhost:7152/api/RendezVous/rechercheMedecin?medecinNom={selectedNomMedecins}";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     HandleApiResponse(response);
                 }
+
 
 
                 string searchTerm = Datedebut.Text;
                 string searchTerm2 = Datefin.Text;
 
-                    if (!string.IsNullOrEmpty(searchTerm)|| !string.IsNullOrEmpty(searchTerm2))
-                    {
-                        string apiUrl = $"https://localhost:7152/api/salaries/rechercherdvpardate?searchTerm2={searchTerm2}?searchTerm={searchTerm}";
+                if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchTerm2))
+                {
 
-                        HttpResponseMessage response = await client.GetAsync(apiUrl);
-                        HandleApiResponse(response);
-                    }
-                
+                    // Formater les dates dans le format attendu par l'API (jj/mm/aaaa)
+                    DateTime dateDebutFormatted = DateTime.ParseExact(searchTerm, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime dateFinFormatted = DateTime.ParseExact(searchTerm2, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    // Construire l'URL de l'API avec les dates formatées correctement
+                    string apiUrl = $"https://localhost:7152/api/RendezVous/DateRange?startDate={dateDebutFormatted.ToString("yyyy/MM/dd")}&endDate={dateFinFormatted.ToString("yyyy/MM/dd")}";
+
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    HandleApiResponse(response);
+                }
+
             }
         }
     
@@ -111,6 +121,9 @@ namespace WpfApp08
 
             ComboPatients.SelectedItem = null;
             ComboMedecins.SelectedItem = null;
+            Datedebut.SelectedDate = null;
+            Datefin.SelectedDate = null;
+
         }
 
 
@@ -123,7 +136,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/RDV";
+                    string apiUrl = "https://localhost:7152/api/RendezVous";
 
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
@@ -136,9 +149,9 @@ namespace WpfApp08
 
                         DataGrid1.ItemsSource = rdv;
 
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom.Patients") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom.Patients") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Nom.Medecins") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Patients.Nom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Patients.Prenom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Medecins.Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Debut", Binding = new Binding("DateDebut") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Fin", Binding = new Binding("DateFin") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Information Complementaire", Binding = new Binding("InfosComplementaires") });
@@ -161,7 +174,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/patients";
+                    string apiUrl = "https://localhost:7152/api/Patients";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -171,7 +184,7 @@ namespace WpfApp08
 
 
                         ComboPatients.ItemsSource = Patients;
-                        ComboPatients.DisplayMemberPath = "Patients";
+                        ComboPatients.DisplayMemberPath = "Nom";
                     }
                     else
                     {
@@ -190,7 +203,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/medecins";
+                    string apiUrl = "https://localhost:7152/api/Medecins";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -199,7 +212,7 @@ namespace WpfApp08
                         var medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
 
                         ComboMedecins.ItemsSource = medecins;
-                        ComboMedecins.DisplayMemberPath = "Nom_Medecins";
+                        ComboMedecins.DisplayMemberPath = "Nom";
                     }
                     else
                     {

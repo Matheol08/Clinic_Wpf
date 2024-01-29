@@ -59,11 +59,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int IdPatient)
+        private async Task<bool> SupprimerDonneesAvecAPI(int id)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/patients/{IdPatient}";
+                string apiUrl = $"https://localhost:7152/api/Patients/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -117,11 +117,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IdPatient, Patients patient)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int id, Patients patient)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/patients/{IdPatient}";
+                string apiUrl = $"https://localhost:7152/api/Patients/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -146,7 +146,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/patients";
+                    string apiUrl = "https://localhost:7152/api/Patients";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)

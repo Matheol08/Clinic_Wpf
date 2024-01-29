@@ -39,9 +39,9 @@ namespace WpfApp08
 
             if (rendezVousSelectionne != null)
             {
-                int IdRendezVous = rendezVousSelectionne.IdRendezVous;
+                int id = rendezVousSelectionne.IdRendezVous;
 
-                bool deleteSuccess = await SupprimerDonneesAvecAPI(IdRendezVous);
+                bool deleteSuccess = await SupprimerDonneesAvecAPI(id);
 
                 if (deleteSuccess)
                 {
@@ -59,11 +59,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> SupprimerDonneesAvecAPI(int IdRendezVous)
+        private async Task<bool> SupprimerDonneesAvecAPI(int id)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/rendezvous/{IdRendezVous}";
+                string apiUrl = $"https://localhost:7152/api/RendezVous/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -117,11 +117,11 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> MettreAJourDonneesAvecAPI(int IdRendezVous, RendezVous rendezVous)
+        private async Task<bool> MettreAJourDonneesAvecAPI(int id, RendezVous rendezVous)
         {
             try
             {
-                string apiUrl = $"https://localhost:7152/api/rendezvous/{IdRendezVous}";
+                string apiUrl = $"https://localhost:7152/api/RendezVous/{id}";
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -146,7 +146,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/rendezvous";
+                    string apiUrl = "https://localhost:7152/api/RendezVous";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
