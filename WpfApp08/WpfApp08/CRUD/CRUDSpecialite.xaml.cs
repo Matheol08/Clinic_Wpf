@@ -234,7 +234,7 @@ namespace WpfApp08
 
                         DataGrid1.Columns.Clear();
                         DataGrid1.ItemsSource = specialites;
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Service", Binding = new Binding("Nom_Service") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Specialite", Binding = new Binding("Nom Specialite") });
                     }
                     else
                     {

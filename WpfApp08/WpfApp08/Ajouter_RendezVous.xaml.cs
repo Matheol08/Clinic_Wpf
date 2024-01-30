@@ -23,17 +23,17 @@ namespace WpfApp08
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
             InitializeComponent();
-            ChargerLesServices();
-            ChargerLesSites();
+            ChargerLesMedecins();
+            ChargerLesPatients();
             RendezVous = new ObservableCollection<RendezVous>();
         }
-        private async void ChargerLesSites()
+        private async void ChargerLesPatients()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/sites";
+                    string apiUrl = "https://localhost:7152/api/Patients";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -43,7 +43,7 @@ namespace WpfApp08
 
                         
                         Combo2.ItemsSource = Patients;
-                        Combo2.DisplayMemberPath = "Ville";
+                        Combo2.DisplayMemberPath = "Nom";
                     }
                     else
                     {
@@ -56,13 +56,13 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
-        private async void ChargerLesServices()
+        private async void ChargerLesMedecins()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/services";
+                    string apiUrl = "https://localhost:7152/api/Medecins";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -71,7 +71,7 @@ namespace WpfApp08
                         var Medecins = JsonConvert.DeserializeObject<Medecins[]>(json);
 
                         Combo1.ItemsSource = Medecins;
-                        Combo1.DisplayMemberPath = "Nom_Service";
+                        Combo1.DisplayMemberPath = "Nom";
                     }
                     else
                     {
@@ -101,8 +101,8 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int IdPatient = ((Patients)Combo1.SelectedItem).IdPatient;
-                    int MedecinId = ((Medecins)Combo2.SelectedItem).IdMedecin;
+                    int IdPatient = ((Patients)Combo2.SelectedItem).IdPatient;
+                    int MedecinId = ((Medecins)Combo1.SelectedItem).IdMedecin;
 
                     DateTime startDateTime = DateTime.Parse(date1.Text);
                     DateTime endDateTime = DateTime.Parse(date2.Text);
@@ -150,39 +150,19 @@ namespace WpfApp08
         {
             try
             {
-                // Remplacez l'URL suivante par votre point de terminaison API réel
-                string apiUrl = "https://votreapi.com/verifierrendezvous";
-
-                // Créez un modèle ou un objet de paramètres à envoyer à votre API
-                var requestModel = new
-                {
-                    MedecinId = medecinId,
-                    StartDateTime = startDateTime,
-                    EndDateTime = endDateTime
-                };
+                string apiUrl = $"https://localhost:7152/api/RendezVous/MedecinEnRendezVous?medecinId={medecinId}&startDateTime={startDateTime}&endDateTime={endDateTime}";
 
                 using (HttpClient client = new HttpClient())
                 {
-                    // Convertir le modèle en JSON
-                    string jsonRequest = JsonConvert.SerializeObject(requestModel);
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                    // Créer le contenu de la requête
-                    StringContent content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-
-                    // Faire la requête API
-                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
-
-                    // Vérifier si la requête a réussi (code 2xx)
                     if (response.IsSuccessStatusCode)
                     {
-                        // Convertir la réponse en booléen
                         bool isAvailable = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
                         return isAvailable;
                     }
                     else
                     {
-                        // Gérer les erreurs si la requête n'a pas réussi
-                        // Vous pouvez également logger l'erreur ou afficher un message d'erreur
                         Console.WriteLine($"Erreur de requête API : {response.StatusCode}");
                         return false;
                     }
@@ -190,7 +170,6 @@ namespace WpfApp08
             }
             catch (Exception ex)
             {
-                // Gérer les erreurs génériques
                 Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
                 return false;
             }
@@ -199,11 +178,12 @@ namespace WpfApp08
 
 
 
+
         private async Task<bool> EnvoyerDonneesAvecAPI(RendezVous nouveau_RendezVous)
         {
             try
             {
-                string apiUrl = "https://localhost:7152/api/salaries";
+                string apiUrl = "https://localhost:7152/api/RendezVous";
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouveau_RendezVous);
                 Console.WriteLine($"JSON Data: {jsonData}");
 

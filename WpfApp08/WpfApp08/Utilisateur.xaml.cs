@@ -149,9 +149,9 @@ namespace WpfApp08
 
                         DataGrid1.ItemsSource = rdv;
 
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Patients.Nom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Patients.Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Medecins.Nom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom Patient", Binding = new Binding("Patients.Nom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom Patient", Binding = new Binding("Patients.Prenom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom Medecin", Binding = new Binding("Medecins.Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Debut", Binding = new Binding("DateDebut") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Date Fin", Binding = new Binding("DateFin") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Information Complementaire", Binding = new Binding("InfosComplementaires") });

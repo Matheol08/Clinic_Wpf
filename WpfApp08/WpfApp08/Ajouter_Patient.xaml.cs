@@ -53,7 +53,7 @@ namespace WpfApp08
                     if (updateSuccess)
                     {
                         MessageBox.Show("Mise à jour réussie !");
-                        CRUDRendezVous pageAcceuil = new CRUDRendezVous();
+                        CRUDPatient pageAcceuil = new CRUDPatient();
                         pageAcceuil.Show();
                         this.Close();
                     }
@@ -73,7 +73,7 @@ namespace WpfApp08
         {
             try
             {
-                string apiUrl = "https://localhost:7152/api/salaries";
+                string apiUrl = "https://localhost:7152/api/Patients";
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouvelAjoutPatients);
                 Console.WriteLine($"JSON Data: {jsonData}");
 
@@ -111,7 +111,7 @@ namespace WpfApp08
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CRUDRendezVous pageAcceuil = new CRUDRendezVous();
+            CRUDPatient pageAcceuil = new CRUDPatient();
             pageAcceuil.Show();
             this.Close();
         }
