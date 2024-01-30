@@ -30,7 +30,7 @@ namespace WpfApp08
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7152/api/specialite";
+                    string apiUrl = "https://localhost:7152/api/Specialites";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -40,7 +40,7 @@ namespace WpfApp08
 
                         
                         Combo1.ItemsSource = Specialite;
-                        Combo1.DisplayMemberPath = "Specialité";
+                        Combo1.DisplayMemberPath = "Libelle";
                     }
                     else
                     {
@@ -101,7 +101,7 @@ namespace WpfApp08
         {
             try
             {
-                string apiUrl = "https://localhost:7152/api/medecin";
+                string apiUrl = "https://localhost:7152/api/Medecins";
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(nouveauMedecin);
                 Console.WriteLine($"JSON Data: {jsonData}");
 

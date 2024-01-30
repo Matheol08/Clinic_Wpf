@@ -12,6 +12,7 @@ using WpfApp08.Models1;
 using WpfApp08.Models3;
 using WpfApp08.Models2;
 using System.Globalization;
+using System.Windows.Input;
 
 namespace WpfApp08
 {
@@ -40,6 +41,20 @@ namespace WpfApp08
         {
             ChargerRDV();
         }
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+       
+            if (DataGrid1.SelectedItem != null)
+            {
+               
+                var selectedRowData = (RendezVous)DataGrid1.SelectedItem;
+
+              
+                InfoRDV secondWindow = new InfoRDV(selectedRowData);
+                secondWindow.ShowDialog();
+            }
+        }
+
 
         private async void Bouton_Rechercher(object sender, RoutedEventArgs e)
         {

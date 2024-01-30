@@ -193,7 +193,7 @@ namespace WpfApp08
                         DataGrid1.ItemsSource = medecins;
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Prenom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Specialite", Binding = new Binding("Medecins.Libelle") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom_Specialite", Binding = new Binding("Specialites.Libelle") });
                     }
                     else
                     {

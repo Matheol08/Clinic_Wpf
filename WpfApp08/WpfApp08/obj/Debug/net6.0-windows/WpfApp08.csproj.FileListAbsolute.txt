@@ -364,3 +364,5 @@ C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\W
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\WpfApp08.csproj.CopyComplete
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\WpfApp08.genruntimeconfig.cache
 C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\ref\WpfApp08.dll
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\InfoRDV.g.cs
+C:\Users\mlesenne\Documents\papier perso\Clinic\Clinic_WPF\Clinic_Wpf\WpfApp08\WpfApp08\obj\Debug\net6.0-windows\InfoRDV.baml

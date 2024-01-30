@@ -46,7 +46,7 @@
             </ComboBox.Background>
         </ComboBox>
         <Button Content="Rechercher" HorizontalAlignment="Left" Height="29" Margin="604,-7,0,0" VerticalAlignment="Top" Width="66" Grid.Column="1" Click ="Bouton_Rechercher" Background="#FF3DDDC2"/>
-        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" x:Name="DataGrid1" HorizontalAlignment="Left" Width="665" Grid.Column="1" Margin="150,148,0,2" Grid.RowSpan="2" Background="#FFFBFBFB"/>
+        <DataGrid MouseDoubleClick="DataGrid_MouseDoubleClick" AutoGenerateColumns="False" IsReadOnly="True" x:Name="DataGrid1" HorizontalAlignment="Left" Width="665" Grid.Column="1" Margin="150,148,0,2" Grid.RowSpan="2" Background="#FFFBFBFB"/>
 
         <Button Content="&lt;" HorizontalAlignment="Left" Height="19" Margin="4,215,0,0" VerticalAlignment="Top" Width="20" Click="Button_Click" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
         <Button Content="Actualiser"

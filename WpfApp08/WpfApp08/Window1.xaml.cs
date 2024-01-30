@@ -42,7 +42,13 @@ namespace WpfApp08
             nouvelleFenetre.Show();
             this.Close();
         }
+        private void bi(object sender, RoutedEventArgs e)
+        {
+            Administrateur nouvelleFenetre = new Administrateur();
 
+            nouvelleFenetre.Show();
+            this.Close();
+        }
     }
 
 }

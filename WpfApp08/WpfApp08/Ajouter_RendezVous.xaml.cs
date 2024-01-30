@@ -107,13 +107,12 @@ namespace WpfApp08
                     DateTime startDateTime = DateTime.Parse(date1.Text);
                     DateTime endDateTime = DateTime.Parse(date2.Text);
 
-                    
                     bool isDoctorAvailable = await CheckExistingAppointments(MedecinId, startDateTime, endDateTime);
 
                     if (!isDoctorAvailable)
                     {
                         MessageBox.Show("Le médecin est déjà en rendez-vous pendant ces horaires.");
-                        return; 
+                        return;
                     }
 
                     RendezVous nouveau_RendezVous = new RendezVous
@@ -145,6 +144,7 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
+
 
         private async Task<bool> CheckExistingAppointments(int medecinId, DateTime startDateTime, DateTime endDateTime)
         {

@@ -6,7 +6,7 @@
         Background="#181735">
 
 
-    <Grid>
+    <Grid Cursor="">
         <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
 
             <Grid Grid.Column="1" Grid.RowSpan="2" Margin="160,-365,-610,85" Panel.ZIndex="-1">
@@ -97,8 +97,7 @@
                 </TextBox.Style>
             </TextBox>
             <Button  Click="rdv" Content="Nouveau Rendez-Vous" HorizontalAlignment="Left" Height="42" Margin="218,391,0,0" VerticalAlignment="Top" Width="180" BorderBrush="#FFFC6586" Background="#FFFC6586" Foreground="White" FontSize="14"/>
-
-
+            <Button  Click="bi" Content="Button" HorizontalAlignment="Left" Height="43" Margin="305,326,0,0" VerticalAlignment="Top" Width="93"/>
         </Grid>
     </Grid>
 </Window>
