@@ -64,31 +64,33 @@ namespace WpfApp08
                     Combo1.SelectedItem == null)
                 {
                     MessageBox.Show("Veuillez remplir tous les champs requis.");
+                    return; // Sortie de la méthode si les champs requis ne sont pas remplis
+                }
+
+                // Récupération de l'identifiant de la spécialité sélectionnée
+                int SpecialiteId = ((Specialites)Combo1.SelectedItem).IdSpecialite;
+
+                // Création du nouvel objet Medecins
+                Medecins nouveauMedecin = new Medecins
+                {
+                    Nom = Text1.Text,
+                    Prenom = Text2.Text,
+                    SpecialiteId = SpecialiteId,
+                };
+
+                // Appel de la méthode pour envoyer les données à l'API
+                bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveauMedecin);
+
+                if (updateSuccess)
+                {
+                    MessageBox.Show("Mise à jour réussie !");
+                    CRUDMedecin pageAcceuil = new CRUDMedecin();
+                    pageAcceuil.Show();
+                    this.Close();
                 }
                 else
                 {
-                    int SpecialiteId = ((Specialites)Combo1.SelectedItem).IdSpecialite;
-
-                    Medecins nouveauMedecin = new Medecins
-                    {
-                        Nom = Text1.Text,
-                        Prenom = Text2.Text,
-                        SpecialiteId = SpecialiteId,
-                    };
-
-                    bool updateSuccess = await EnvoyerDonneesAvecAPI(nouveauMedecin);
-
-                    if (updateSuccess)
-                    {
-                        MessageBox.Show("Mise à jour réussie !");
-                        CRUDMedecin pageAcceuil = new CRUDMedecin();
-                        pageAcceuil.Show();
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Échec de la mise à jour.");
-                    }
+                    MessageBox.Show("Échec de la mise à jour.");
                 }
             }
             catch (Exception ex)
@@ -96,6 +98,7 @@ namespace WpfApp08
                 MessageBox.Show($"Une erreur s'est produite : {ex.Message}");
             }
         }
+
 
         private async Task<bool> EnvoyerDonneesAvecAPI(Medecins nouveauMedecin)
         {

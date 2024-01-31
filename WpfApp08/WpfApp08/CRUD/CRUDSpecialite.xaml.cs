@@ -87,27 +87,17 @@ namespace WpfApp08
 
             if (specialiteSelectionnee != null)
             {
-                int id = specialiteSelectionnee.IdSpecialite;
+                int id = specialiteSelectionnee.IdSpecialite; 
 
-                bool isAssigned = await VerifierAssignationMedecin(id);
+                bool deleteSuccess = await SupprimerDonneesAvecAPI(id);
 
-                if (isAssigned)
+                if (deleteSuccess)
                 {
-                    MessageBox.Show("Échec de la suppression. La Spécialité est assigné à un Médecin.");
+                    MessageBox.Show("Suppression réussie !");
                 }
                 else
                 {
-                    bool deleteSuccess = await SupprimerDonneesAvecAPI(id);
-
-                    if (deleteSuccess)
-                    {
-                        MessageBox.Show("Suppression réussie !");
-                        Specialites.Remove(specialiteSelectionnee);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Échec de la suppression.");
-                    }
+                    MessageBox.Show("Échec de la suppression.");
                 }
             }
             else
@@ -116,26 +106,6 @@ namespace WpfApp08
             }
         }
 
-        private async Task<bool> VerifierAssignationMedecin(int id)
-        {
-            try
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
-                //optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
-
-                using (var context = new ClinicContext(optionsBuilder.Options))
-                {
-                    int count = await context.Specialites.CountAsync(s => s.IdSpecialite == id);
-
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de la vérification de l'assignation des salariés : {ex.Message}");
-                return false;
-            }
-        }
 
         private async Task<bool> SupprimerDonneesAvecAPI(int id)
         {
@@ -158,12 +128,6 @@ namespace WpfApp08
                 return false;
             }
         }
-
-        //private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        //{
-        //    var editedRow = e.Row.Item as Specialites;
-        //    var nouvelleValeur = (e.EditingElement as TextBox).Text;
-        //}
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
@@ -234,7 +198,7 @@ namespace WpfApp08
 
                         DataGrid1.Columns.Clear();
                         DataGrid1.ItemsSource = specialites;
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Specialite", Binding = new Binding("Nom Specialite") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Specialite", Binding = new Binding("Libelle") });
                     }
                     else
                     {
