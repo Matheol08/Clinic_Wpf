@@ -16,13 +16,27 @@ namespace WpfApp08.Models3
         [Key]
         public int IdRendezVous { get; set; }
         [ForeignKey("Patients")]   
-        public int IdPatient { get; set; }
+        public int PatientId { get; set; }
         public virtual Patients Patients { get; set; }
 
         [ForeignKey("Medecins")]
         public int MedecinId { get; set; }
 
         public virtual Medecins Medecins { get; set; }
+        public DateTime DateDebut { get; set; }
+        public DateTime DateFin { get; set; }
+        public string InfosComplementaires { get; set; }
+    }
+
+    public class ajoutRendezVous
+    {
+        public int IdRendezVous { get; set; }
+        [ForeignKey("Patients")]
+        public int PatientId { get; set; }
+
+        [ForeignKey("Medecins")]
+
+        public int MedecinId { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public string InfosComplementaires { get; set; }

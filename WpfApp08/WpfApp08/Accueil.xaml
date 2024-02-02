@@ -6,12 +6,9 @@
         xmlns:local="clr-namespace:WpfApp08"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
-        Title="Administrateur" Height="585" Width="831"  WindowStartupLocation="CenterScreen" Background="#FF0F0F2D">
+        Title="Administrateur" Height="573" Width="831"  WindowStartupLocation="CenterScreen" Background="#FF0F0F2D">
 
-    <Grid Height="544" VerticalAlignment="Top" Background="#FF0F0F2D" Margin="-2,40,2,0">
-
-
-        <Button Content="Retour" Click="RetourButton_Click" HorizontalAlignment="Left" Margin="16,-39,0,0" VerticalAlignment="Top" Height="29" Width="66" Grid.Row="0"/>
+    <Grid Height="553" VerticalAlignment="Center" Background="#FF0F0F2D">
         <Button Content="Modifier des rendez-vous" Click="Button_rendez_vous" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="218" Margin="61,248,0,0" BorderBrush="#FF0B0A0A" Foreground="White" FontSize="18" Background="#FFFC6586" />
         <StackPanel Width="388" Height="144" Margin="453,290,-186,0">
 

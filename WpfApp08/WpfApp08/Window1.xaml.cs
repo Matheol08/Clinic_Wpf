@@ -22,7 +22,7 @@ namespace WpfApp08
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) && e.Key == Key.A)
             {
-                Administrateur nouvelleFenetre = new Administrateur(); //remettre la fenetre pour le mot de passe
+                AdminMDP nouvelleFenetre = new AdminMDP(); //remettre la fenetre pour le mot de passe
 
                 nouvelleFenetre.Show();
                 this.Close();

@@ -12,7 +12,6 @@ using WpfApp08.Models1;
 using WpfApp08.Models2;
 using WpfApp08.Models3;
 
-
 namespace WpfApp08
 {
     public partial class Ajouter_RendezVous : Window
@@ -27,6 +26,7 @@ namespace WpfApp08
             ChargerLesPatients();
             RendezVous = new ObservableCollection<RendezVous>();
         }
+        
         private async void ChargerLesPatients()
         {
             try
@@ -101,23 +101,23 @@ namespace WpfApp08
                 }
                 else
                 {
-                    int IdPatient = ((Patients)Combo2.SelectedItem).IdPatient;
+                    int PatientId = ((Patients)Combo2.SelectedItem).IdPatient;
                     int MedecinId = ((Medecins)Combo1.SelectedItem).IdMedecin;
 
                     DateTime startDateTime = DateTime.Parse(date1.Text);
                     DateTime endDateTime = DateTime.Parse(date2.Text);
 
-                    bool isDoctorAvailable = await CheckExistingAppointments(MedecinId, startDateTime, endDateTime);
+                    //bool isDoctorAvailable = await CheckExistingAppointments(MedecinId, startDateTime, endDateTime);
 
-                    if (!isDoctorAvailable)
-                    {
-                        MessageBox.Show("Le médecin est déjà en rendez-vous pendant ces horaires.");
-                        return;
-                    }
+                    //if (!isDoctorAvailable)
+                    //{
+                    //    MessageBox.Show("Le médecin est déjà en rendez-vous pendant ces horaires.");
+                    //    return;
+                    //}
 
-                    RendezVous nouveau_RendezVous = new RendezVous
+                    ajoutRendezVous nouveau_RendezVous = new ajoutRendezVous
                     {
-                        IdPatient = IdPatient,
+                        PatientId = PatientId,
                         MedecinId = MedecinId,
                         DateDebut = startDateTime,
                         DateFin = endDateTime,
@@ -146,40 +146,40 @@ namespace WpfApp08
         }
 
 
-        private async Task<bool> CheckExistingAppointments(int medecinId, DateTime startDateTime, DateTime endDateTime)
-        {
-            try
-            {
-                string apiUrl = $"https://localhost:7152/api/RendezVous/MedecinEnRendezVous?medecinId={medecinId}&startDateTime={startDateTime}&endDateTime={endDateTime}";
+        //private async Task<bool> CheckExistingAppointments(int medecinId, DateTime startDateTime, DateTime endDateTime)
+        //{
+        //    try
+        //    {
+        //        string apiUrl = $"https://localhost:7152/api/RendezVous/MedecinEnRendezVous?medecinId={medecinId}&startDateTime={startDateTime}&endDateTime={endDateTime}";
 
-                using (HttpClient client = new HttpClient())
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        bool isAvailable = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
-                        return isAvailable;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Erreur de requête API : {response.StatusCode}");
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
-                return false;
-            }
-        }
-
-
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                bool isAvailable = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
+        //                return isAvailable;
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine($"Erreur de requête API : {response.StatusCode}");
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
+        //        return false;
+        //    }
+        //}
 
 
 
-        private async Task<bool> EnvoyerDonneesAvecAPI(RendezVous nouveau_RendezVous)
+
+
+        private async Task<bool> EnvoyerDonneesAvecAPI(ajoutRendezVous nouveau_RendezVous)
         {
             try
             {

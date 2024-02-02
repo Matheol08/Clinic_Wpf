@@ -3,10 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp08"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+                xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+
         WindowStyle="None" ResizeMode="NoResize"
         Title="Ajouter_Salarie" Height="537" Width="464">
+
     <Grid Background="#FF0F0F2D">
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="31,243,0,0" TextWrapping="Wrap" Text="Informations complémentaires:" VerticalAlignment="Top" Width="237" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White" Height="22" FontSize="16"/>
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="63,68,0,0" TextWrapping="Wrap" Text="Medecin:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White" FontSize="16"/>
@@ -22,5 +25,6 @@
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="63,117,0,0" TextWrapping="Wrap" Text="Debut:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White" FontSize="16"/>
         <TextBox BorderBrush="#FF0F0F2D" HorizontalAlignment="Left" Margin="63,166,0,0" TextWrapping="Wrap" Text="Fin:" VerticalAlignment="Top" Width="120" IsReadOnly="True" Background="#FF0F0F2D" Foreground="White" FontSize="16"/>
 
+      
     </Grid>
 </Window>

@@ -86,11 +86,11 @@ namespace WpfApp08
             ChargerPatients();
         }
 
-        private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            var editedRow = e.Row.Item as Patients;
-            var nouvelleValeur = (e.EditingElement as TextBox).Text;
-        }
+        //private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    var editedRow = e.Row.Item as Patients;
+        //    var nouvelleValeur = (e.EditingElement as TextBox).Text;
+        //}
 
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
@@ -176,7 +176,7 @@ namespace WpfApp08
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Administrateur pageAccueil = new Administrateur();
+            Accueil pageAccueil = new Accueil();
             pageAccueil.Show();
             this.Close();
         }

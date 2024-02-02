@@ -97,7 +97,6 @@
                 </TextBox.Style>
             </TextBox>
             <Button  Click="rdv" Content="Nouveau Rendez-Vous" HorizontalAlignment="Left" Height="42" Margin="218,391,0,0" VerticalAlignment="Top" Width="180" BorderBrush="#FFFC6586" Background="#FFFC6586" Foreground="White" FontSize="14"/>
-            <Button  Click="bi" Content="Button" HorizontalAlignment="Left" Height="43" Margin="305,326,0,0" VerticalAlignment="Top" Width="93"/>
         </Grid>
     </Grid>
 </Window>

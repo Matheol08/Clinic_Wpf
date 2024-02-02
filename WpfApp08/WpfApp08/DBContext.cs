@@ -24,7 +24,7 @@ namespace WpfApp08
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=.\SQLExpress;Database=Annuaire;Trusted_Connection=True;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4QTSD8Q;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true" );
             }
 
         }

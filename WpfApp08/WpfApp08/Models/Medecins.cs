@@ -18,13 +18,30 @@ namespace WpfApp08.Models1
         [Required]
         [Key]
 
-        public int IdMedecin { get; set; }
+        public int IdMedecin  { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         [ForeignKey("Specialites")]
         public int SpecialiteId { get; set; }
-
+        //[JsonIgnore]
         public virtual  Specialites Specialites { get; set; }
 
     }
+
+    public class AjoutMedecins
+    {
+
+        [Required]
+        [Key]
+
+       // public int IdMedecin { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        [ForeignKey("Specialites")]
+        public int IdSpecialite { get; set; }
+        //public virtual Specialites Specialites { get; set; }
+
+
+    }
+  
 }

@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/aqO0UUTFfDi85fWSD2xgMN58ljgq8/xBTAAbwcwrawX/EpaWl/9+oIVr0lLndMDsB651HorvySoaA6IEtSstg==",
+  "dgSpecHash": "AxACTLuB/oQ8Nb5QgwMtVb+FwTd1q+S7d+g7n/6sjqXEEXoxgzxAj/A+L9ThfAoqT1fANwE02/vt7O5f96Cvrw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mlesenne\\Documents\\papier perso\\Clinic\\Clinic_WPF\\Clinic_Wpf\\WpfApp08\\WpfApp08\\WpfApp08.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mlesenne\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\mlesenne\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\mlesenne\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.4\\microsoft.data.sqlclient.5.1.4.nupkg.sha512",
@@ -39,6 +41,7 @@
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.web.webview2\\1.0.864.35\\microsoft.web.webview2.1.0.864.35.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\mlesenne\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\modernui\\2.0.0\\modernui.2.0.0.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\mlesenne\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",

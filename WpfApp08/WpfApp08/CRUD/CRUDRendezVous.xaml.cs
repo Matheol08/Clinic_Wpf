@@ -1,15 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using WpfApp08.Models1;
 using WpfApp08.Models3;
+using WpfApp08.Models4;
+using WpfApp08.Models2;
 namespace WpfApp08
 {
     public partial class CRUDRendezVous : Window
@@ -88,32 +94,94 @@ namespace WpfApp08
 
         private void DataGrid1_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            var editedRow = e.Row.Item as RendezVous;
+            var editedRow = e.Row.Item as ajoutRendezVous;
             var nouvelleValeur = (e.EditingElement as TextBox).Text;
         }
-
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
             RendezVous rendezVousSelectionne = (RendezVous)DataGrid1.SelectedItem;
 
             if (rendezVousSelectionne != null)
             {
-                int IdRendezVous = rendezVousSelectionne.IdRendezVous;
-
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdRendezVous, rendezVousSelectionne);
-
-                if (updateSuccess)
+                try
                 {
-                    MessageBox.Show("Mise à jour réussie !");
+                    Patients nouveauPatient = rendezVousSelectionne.Patients;
+                    Medecins nouveauMedecin = rendezVousSelectionne.Medecins;
+
+                    Patients patientExistant = await VerifierPatientExistant(nouveauPatient);
+                    Medecins medecinExistant = await VerifierMedecinExistant(nouveauMedecin);
+
+                    if (patientExistant != null && medecinExistant != null)
+                    {
+                        rendezVousSelectionne.PatientId = patientExistant.IdPatient;
+                        rendezVousSelectionne.MedecinId = medecinExistant.IdMedecin;
+
+                        bool updateSuccess = await MettreAJourDonneesAvecAPI(rendezVousSelectionne.IdRendezVous, rendezVousSelectionne);
+
+                        if (updateSuccess)
+                        {
+                            MessageBox.Show("Mise à jour réussie !");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Échec de la mise à jour.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le patient ou le médecin modifié n'existe pas.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Échec de la mise à jour.");
+                    MessageBox.Show($"Erreur lors de la mise à jour : {ex.Message}");
                 }
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner une ligne à mettre à jour.");
+            }
+        }
+
+        private async Task<Patients> VerifierPatientExistant(Patients nouveauPatient)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4QTSD8Q;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true;");
+                using (var context = new ClinicContext(optionsBuilder.Options))
+                {
+                    Patients patientExistant = await context.Patients
+                        .FirstOrDefaultAsync(p => p.Nom == nouveauPatient.Nom);
+
+                    return patientExistant;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de la vérification du patient : {ex.Message}");
+                return null;
+            }
+        }
+
+        private async Task<Medecins> VerifierMedecinExistant(Medecins nouveauMedecin)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4QTSD8Q;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true;");
+                using (var context = new ClinicContext(optionsBuilder.Options))
+                {
+                    Medecins medecinExistant = await context.Medecins
+                        .FirstOrDefaultAsync(m => m.Nom == nouveauMedecin.Nom);
+
+                    return medecinExistant;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de la vérification du médecin : {ex.Message}");
+                return null;
             }
         }
 
@@ -123,9 +191,23 @@ namespace WpfApp08
             {
                 string apiUrl = $"https://localhost:7152/api/RendezVous/{id}";
 
+                int nouveauPatientId = rendezVous.PatientId;
+                int nouveauMedecinId = rendezVous.MedecinId;
+
+                rendezVous.Patients = null;
+                rendezVous.Medecins = null;
+
+                rendezVous.PatientId = nouveauPatientId;
+                rendezVous.MedecinId = nouveauMedecinId;
+
                 using (HttpClient client = new HttpClient())
                 {
-                    var jsonData = JsonConvert.SerializeObject(rendezVous);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                    };
+
+                    var jsonData = System.Text.Json.JsonSerializer.Serialize(rendezVous, options);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await client.PutAsync(apiUrl, content);
@@ -139,6 +221,7 @@ namespace WpfApp08
                 return false;
             }
         }
+
 
         private async void ChargerRendezVous()
         {
@@ -157,12 +240,11 @@ namespace WpfApp08
                         DataGrid1.Columns.Clear();
 
                         DataGrid1.ItemsSource = rendezVous;
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom", Binding = new Binding("Patients.Nom") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Prenom", Binding = new Binding("Patients.Prenom") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Nom Patient", Binding = new Binding("Patients.Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Medecin", Binding = new Binding("Medecins.Nom") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "DateDebut", Binding = new Binding("DateDebut") });
                         DataGrid1.Columns.Add(new DataGridTextColumn { Header = "DateFin", Binding = new Binding("DateFin") });
-                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Infos", Binding = new Binding("InfoComplementaire") });
+                        DataGrid1.Columns.Add(new DataGridTextColumn { Header = "Infos", Binding = new Binding("InfosComplementaires") });
 
                     }
                     else
@@ -179,7 +261,7 @@ namespace WpfApp08
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Administrateur pageAcceuil = new Administrateur();
+            Accueil pageAcceuil = new Accueil();
             pageAcceuil.Show();
             this.Close();
         }

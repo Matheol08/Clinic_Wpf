@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using WpfApp08.Models1;
-
+using WpfApp08.Models4;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WpfApp08
 {
@@ -99,13 +101,14 @@ namespace WpfApp08
             try
             {
                 var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
-                //optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4QTSD8Q;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true;");
 
                 using (var context = new ClinicContext(optionsBuilder.Options))
                 {
-                    int count = await context.Medecins.CountAsync(s => s.IdMedecin == IdMedecin);
+                    // Vérifie s'il existe des rendez-vous assignés à ce médecin
+                    bool isAssigned = await context.RendezVous.AnyAsync(r => r.MedecinId == IdMedecin);
 
-                    return count > 0;
+                    return isAssigned;
                 }
             }
             catch (Exception ex)
@@ -114,29 +117,72 @@ namespace WpfApp08
                 return false;
             }
         }
-
         private async void MAJ_Click(object sender, RoutedEventArgs e)
         {
             Medecins medecinSelectionne = (Medecins)DataGrid1.SelectedItem;
 
             if (medecinSelectionne != null)
             {
-                int IdMedecin = medecinSelectionne.IdMedecin;
-
-                bool updateSuccess = await MettreAJourDonneesAvecAPI(IdMedecin, medecinSelectionne);
-
-                if (updateSuccess)
+                try
                 {
-                    MessageBox.Show("Mise à jour réussie !");
+                    string nouveauNom = medecinSelectionne.Nom;
+                    string nouveauPrenom = medecinSelectionne.Prenom;
+                    Specialites nouvelleSpecialite = medecinSelectionne.Specialites;
+
+                    Specialites specialiteExistante = await VerifierSpecialiteExistante(nouvelleSpecialite);
+
+                    if (specialiteExistante != null)
+                    {
+                        medecinSelectionne.SpecialiteId = specialiteExistante.IdSpecialite;
+
+                        bool updateSuccess = await MettreAJourDonneesAvecAPI(medecinSelectionne.IdMedecin, medecinSelectionne);
+
+                        if (updateSuccess)
+                        {
+                            MessageBox.Show("Mise à jour réussie !");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Échec de la mise à jour.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("La spécialité modifiée n'existe pas.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Échec de la mise à jour.");
+                    MessageBox.Show($"Erreur lors de la mise à jour : {ex.Message}");
                 }
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner une ligne à mettre à jour.");
+            }
+        }
+
+
+
+        private async Task<Specialites> VerifierSpecialiteExistante(Specialites nouvelleSpecialite)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ClinicContext>();
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4QTSD8Q;Database=Clinic;Trusted_Connection=True;TrustServerCertificate=true;");
+                using (var context = new ClinicContext(optionsBuilder.Options))
+
+                {
+                    Specialites specialiteExistante = await context.Specialites
+                        .FirstOrDefaultAsync(s => s.Libelle == nouvelleSpecialite.Libelle);
+
+                    return specialiteExistante;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de la vérification de la spécialité : {ex.Message}");
+                return null;
             }
         }
 
@@ -146,9 +192,21 @@ namespace WpfApp08
             {
                 string apiUrl = $"https://localhost:7152/api/Medecins/{id}";
 
+                int nouvelleSpecialiteId = medecin.SpecialiteId;
+
+                medecin.Specialites = null;
+
+              
+                medecin.SpecialiteId = nouvelleSpecialiteId;
+
                 using (HttpClient client = new HttpClient())
                 {
-                    var jsonData = JsonConvert.SerializeObject(medecin);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                    };
+
+                    var jsonData = System.Text.Json.JsonSerializer.Serialize(medecin, options);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await client.PutAsync(apiUrl, content);
@@ -162,6 +220,8 @@ namespace WpfApp08
                 return false;
             }
         }
+
+
 
         private void RetourButton_Click(object sender, RoutedEventArgs e)
         {

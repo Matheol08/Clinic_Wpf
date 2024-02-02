@@ -71,11 +71,11 @@ namespace WpfApp08
                 int SpecialiteId = ((Specialites)Combo1.SelectedItem).IdSpecialite;
 
                 // Création du nouvel objet Medecins
-                Medecins nouveauMedecin = new Medecins
+                AjoutMedecins nouveauMedecin = new AjoutMedecins
                 {
                     Nom = Text1.Text,
                     Prenom = Text2.Text,
-                    SpecialiteId = SpecialiteId,
+                    IdSpecialite = SpecialiteId,
                 };
 
                 // Appel de la méthode pour envoyer les données à l'API
@@ -99,8 +99,7 @@ namespace WpfApp08
             }
         }
 
-
-        private async Task<bool> EnvoyerDonneesAvecAPI(Medecins nouveauMedecin)
+        private async Task<bool> EnvoyerDonneesAvecAPI(AjoutMedecins nouveauMedecin)
         {
             try
             {
